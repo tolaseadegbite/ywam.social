@@ -27,9 +27,11 @@ group :development, :test do
 end
 
 group :development do
-  gem "web-console"
-  # gem "rack-mini-profiler"
-  # gem "spring"
+  gem "web-console", "4.2.0"
+  gem "annotate", "~> 3.2"
+  gem "better_errors"
+  gem "binding_of_caller"
+  gem "letter_opener"
 end
 
 group :test do
@@ -37,13 +39,12 @@ group :test do
   gem "selenium-webdriver",       "4.2.0"
   gem "webdrivers",               "5.0.0"
   gem "rails-controller-testing", "1.0.5"
-  gem "minitest",                 "5.15.0"
+  gem "minitest",                 "5.22.3"
   gem "minitest-reporters",       "1.5.0"
   gem "guard",                    "2.18.0"
   gem "guard-minitest",           "2.4.6"
 end
 
 group :production do
-  # gem "pg",         "1.3.5"
   gem "aws-sdk-s3", "1.114.0", require: false
 end

@@ -1,0 +1,48 @@
+# == Schema Information
+#
+# Table name: events
+#
+#  id             :bigint           not null, primary key
+#  details        :text
+#  end_date       :date
+#  end_time       :time
+#  location       :string
+#  name           :string
+#  start_date     :date
+#  start_time     :time
+#  streaming_link :string
+#  time_zone      :integer
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  user_id        :bigint           not null
+#
+# Indexes
+#
+#  index_events_on_user_id  (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
+#
+
+one:
+  name: MyString
+  start_date: 2024-05-01
+  start_time: 2024-05-01 14:59:08
+  end_date: 2024-05-01
+  end_time: 2024-05-01 14:59:08
+  time_zone: 1
+  details: MyText
+  location: MyString
+  streaming_link: MyString
+
+two:
+  name: MyString
+  start_date: 2024-05-01
+  start_time: 2024-05-01 14:59:08
+  end_date: 2024-05-01
+  end_time: 2024-05-01 14:59:08
+  time_zone: 1
+  details: MyText
+  location: MyString
+  streaming_link: MyString
