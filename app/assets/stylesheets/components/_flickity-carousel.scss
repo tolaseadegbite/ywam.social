@@ -1,0 +1,15 @@
+.carousel-cell {
+    width: 33%;
+    height: 350px;
+    margin-right: 3px;
+    vertical-align: middle;
+    object-fit: cover;
+    counter-increment: carousel-cell;
+}
+
+/* cell number */
+.carousel-cell:before {
+    display: block;
+    text-align: center;
+    content: counter(carousel-cell);
+}
