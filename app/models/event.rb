@@ -6,6 +6,7 @@
 #  details           :text
 #  end_date          :date
 #  end_time          :time
+#  event_type        :integer
 #  location          :string
 #  name              :string
 #  start_date        :date
@@ -29,8 +30,14 @@
 #
 class Event < ApplicationRecord
     # make sure the follwing event attributes are present before saving to database
-    validates :name, :start_date, :start_time, :end_date, :end_time, :time_zone, :details, :location, :streaming_link, presence: true
+    validates :name, :start_date, :start_time, :end_date, :end_time, :time_zone, :details, :location, :streaming_link, :event_type, presence: true
 
     # associate event to a user
     belongs_to :user
+
+    # event types
+    enum event_type: {
+        online: 0,
+        'in-person': 1
+    }
 end

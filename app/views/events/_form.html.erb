@@ -1,0 +1,56 @@
+<%= form_with model: event do |f| %>
+    <%= render 'layouts/errors', f: f %>
+
+    <div class="mb-3">
+        <%= f.text_field :name, placeholder: 'Event name' %>
+    </div>
+
+    <div class="mb-3">
+        <%= f.select :event_category_id, EventCategory.all.pluck(:name, :id), { include_blank: 'Select category' }, placeholder: 'Event name' %>
+    </div>
+
+    <div class="mb-3">
+        <%= f.label :start_date %>
+        <%= f.date_field :start_date %>
+    </div>
+
+    <div class="mb-3">
+        <%= f.label :start_time %>
+        <%= f.time_field :start_time %>
+    </div>
+
+    <div class="mb-3">
+        <%= f.label :end_date %>
+        <%= f.date_field :end_date %>
+    </div>
+
+    <div class="mb-3">
+        <%= f.label :end_time %>
+        <%= f.time_field :end_time %>
+    </div>
+
+    <div class="mb-3">
+        <%= f.label :event_type %>
+        <%= f.select :event_type, Event.event_types.keys.map { |key| [key.humanize.capitalize, key] }, { include_blank: 'Is it in person or virtual?' } %>
+    </div>
+
+    <div class="mb-3">
+        <%= f.text_field :streaming_link, placeholder: 'Streaming link' %>
+    </div>
+
+    <div class="mb-3">
+        <%= f.number_field :time_zone, placeholder: 'Time zone' %>
+    </div>
+
+    <div class="mb-3">
+        <%= f.text_field :location, placeholder: 'Event location' %>
+    </div>
+
+    <div class="mb-3">
+        <%= f.text_area :details, placeholder: 'Event details' %>
+    </div>
+
+    <div class="mb-3">
+        <%= f.submit :submit %>
+    </div>
+<% end %>

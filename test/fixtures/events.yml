@@ -6,6 +6,7 @@
 #  details           :text
 #  end_date          :date
 #  end_time          :time
+#  event_type        :integer
 #  location          :string
 #  name              :string
 #  start_date        :date
