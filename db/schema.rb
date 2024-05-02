@@ -14,6 +14,27 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_02_150546) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "accounts", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "username", null: false
+    t.string "firstname", null: false
+    t.string "surname", null: false
+    t.boolean "admin", default: false
+    t.boolean "mod", default: false
+    t.string "state"
+    t.string "country"
+    t.string "bio"
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_accounts_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_accounts_on_reset_password_token", unique: true
+    t.index ["username"], name: "index_accounts_on_username", unique: true
+  end
+
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -46,32 +67,32 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_02_150546) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id", null: false
-    t.index ["user_id"], name: "index_event_categories_on_user_id"
+    t.bigint "account_id", null: false
+    t.index ["account_id"], name: "index_event_categories_on_account_id"
   end
 
   create_table "event_speakers", force: :cascade do |t|
     t.string "name"
     t.text "about"
-    t.bigint "user_id", null: false
+    t.bigint "account_id", null: false
     t.bigint "event_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_event_speakers_on_account_id"
     t.index ["event_id"], name: "index_event_speakers_on_event_id"
-    t.index ["user_id"], name: "index_event_speakers_on_user_id"
   end
 
   create_table "event_talks", force: :cascade do |t|
     t.string "title"
     t.text "description"
-    t.bigint "user_id", null: false
+    t.bigint "account_id", null: false
     t.bigint "event_id", null: false
     t.bigint "event_speaker_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_event_talks_on_account_id"
     t.index ["event_id"], name: "index_event_talks_on_event_id"
     t.index ["event_speaker_id"], name: "index_event_talks_on_event_speaker_id"
-    t.index ["user_id"], name: "index_event_talks_on_user_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -86,56 +107,35 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_02_150546) do
     t.string "streaming_link"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id", null: false
+    t.bigint "account_id", null: false
     t.bigint "event_category_id", null: false
     t.integer "event_type"
     t.integer "cost_type"
+    t.index ["account_id"], name: "index_events_on_account_id"
     t.index ["event_category_id"], name: "index_events_on_event_category_id"
-    t.index ["user_id"], name: "index_events_on_user_id"
   end
 
   create_table "speaker_profiles", force: :cascade do |t|
     t.string "name"
     t.string "link"
     t.bigint "event_speaker_id", null: false
-    t.bigint "user_id", null: false
+    t.bigint "account_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_speaker_profiles_on_account_id"
     t.index ["event_speaker_id"], name: "index_speaker_profiles_on_event_speaker_id"
-    t.index ["user_id"], name: "index_speaker_profiles_on_user_id"
-  end
-
-  create_table "users", force: :cascade do |t|
-    t.string "email", default: "", null: false
-    t.string "username", null: false
-    t.string "firstname", null: false
-    t.string "surname", null: false
-    t.boolean "admin", default: false
-    t.boolean "mod", default: false
-    t.string "state"
-    t.string "country"
-    t.string "bio"
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-    t.index ["username"], name: "index_users_on_username", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "event_categories", "users"
+  add_foreign_key "event_categories", "accounts"
+  add_foreign_key "event_speakers", "accounts"
   add_foreign_key "event_speakers", "events"
-  add_foreign_key "event_speakers", "users"
+  add_foreign_key "event_talks", "accounts"
   add_foreign_key "event_talks", "event_speakers"
   add_foreign_key "event_talks", "events"
-  add_foreign_key "event_talks", "users"
+  add_foreign_key "events", "accounts"
   add_foreign_key "events", "event_categories"
-  add_foreign_key "events", "users"
+  add_foreign_key "speaker_profiles", "accounts"
   add_foreign_key "speaker_profiles", "event_speakers"
-  add_foreign_key "speaker_profiles", "users"
 end

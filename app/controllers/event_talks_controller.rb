@@ -1,5 +1,5 @@
 class EventTalksController < ApplicationController
-    before_action :authenticate_user!
+    before_action :authenticate_account!
     before_action :find_event_talk, only: [:show, :edit, :update, :destroy]
     # before_action :find_event_speaker
 

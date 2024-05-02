@@ -6,15 +6,15 @@
 #  name       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  user_id    :bigint           not null
+#  account_id :bigint           not null
 #
 # Indexes
 #
-#  index_event_categories_on_user_id  (user_id)
+#  index_event_categories_on_account_id  (account_id)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (user_id => users.id)
+#  fk_rails_...  (account_id => accounts.id)
 #
 require "test_helper"
 

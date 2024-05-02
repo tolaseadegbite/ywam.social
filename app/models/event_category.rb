@@ -6,21 +6,21 @@
 #  name       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  user_id    :bigint           not null
+#  account_id :bigint           not null
 #
 # Indexes
 #
-#  index_event_categories_on_user_id  (user_id)
+#  index_event_categories_on_account_id  (account_id)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (user_id => users.id)
+#  fk_rails_...  (account_id => accounts.id)
 #
 class EventCategory < ApplicationRecord
 
     # make sure the follwing event_category attributes are present before saving to database
     validates :name, presence: true
 
-    # associates event category to user
-    belongs_to :user
+    # associates event category to account
+    belongs_to :account
 end

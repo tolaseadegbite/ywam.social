@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: {
-    registrations: 'users/registrations'
+  devise_for :accounts, controllers: {
+    registrations: 'accounts/registrations'
   }
   get "up" => "rails/health#show", as: :rails_health_check
 

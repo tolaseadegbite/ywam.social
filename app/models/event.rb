@@ -16,25 +16,25 @@
 #  time_zone         :integer
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
+#  account_id        :bigint           not null
 #  event_category_id :bigint           not null
-#  user_id           :bigint           not null
 #
 # Indexes
 #
+#  index_events_on_account_id         (account_id)
 #  index_events_on_event_category_id  (event_category_id)
-#  index_events_on_user_id            (user_id)
 #
 # Foreign Keys
 #
+#  fk_rails_...  (account_id => accounts.id)
 #  fk_rails_...  (event_category_id => event_categories.id)
-#  fk_rails_...  (user_id => users.id)
 #
 class Event < ApplicationRecord
     # make sure the follwing event attributes are present before saving to database
     validates :name, :start_date, :start_time, :time_zone, :details, :location, :streaming_link, :event_type, :cost_type, presence: true
 
-    # associate event to a user
-    belongs_to :user
+    # associate event to a account
+    belongs_to :account
 
     # associate the follwing objects to an event and also delete from database when the event is destroyed
     has_many :event_speakers, dependent: :destroy

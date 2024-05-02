@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: users
+# Table name: accounts
 #
 #  id                     :bigint           not null, primary key
 #  admin                  :boolean          default(FALSE)
@@ -21,23 +21,23 @@
 #
 # Indexes
 #
-#  index_users_on_email                 (email) UNIQUE
-#  index_users_on_reset_password_token  (reset_password_token) UNIQUE
-#  index_users_on_username              (username) UNIQUE
+#  index_accounts_on_email                 (email) UNIQUE
+#  index_accounts_on_reset_password_token  (reset_password_token) UNIQUE
+#  index_accounts_on_username              (username) UNIQUE
 #
-class User < ApplicationRecord
+class Account < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  # make sure the follwing user attributes are present before saving to database
+  # make sure the follwing account attributes are present before saving to database
   validates :firstname, :surname, :username, :bio, :state, :country, presence: true
 
-  # associates user to many events and delete events associated when a user is deleted from the database
+  # associates account to many events and delete events associated when a account is deleted from the database
   has_many :events, dependent: :destroy
 
-  # associates user to the following objects
+  # associates account to the following objects
   has_many :event_categories
   has_many :event_speakers
   has_many :event_talks

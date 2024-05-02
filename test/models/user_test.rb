@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: users
+# Table name: accounts
 #
 #  id                     :bigint           not null, primary key
 #  admin                  :boolean          default(FALSE)
@@ -21,13 +21,13 @@
 #
 # Indexes
 #
-#  index_users_on_email                 (email) UNIQUE
-#  index_users_on_reset_password_token  (reset_password_token) UNIQUE
-#  index_users_on_username              (username) UNIQUE
+#  index_accounts_on_email                 (email) UNIQUE
+#  index_accounts_on_reset_password_token  (reset_password_token) UNIQUE
+#  index_accounts_on_username              (username) UNIQUE
 #
 require "test_helper"
 
-class UserTest < ActiveSupport::TestCase
+class AccountTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
-    before_action :authenticate_user!
+    before_action :authenticate_account!
     before_action :find_event, only: [:show, :edit, :update, :destroy]
-    before_action :find_correct_user, only: [:show, :edit, :update, :destroy]
+    before_action :find_correct_account, only: [:show, :edit, :update, :destroy]
     before_action :find_event_category
 
     def index
@@ -17,7 +17,7 @@ class EventsController < ApplicationController
     end
 
     def create
-        @event = current_user.events.build(event_params)
+        @event = current_account.events.build(event_params)
         if @event.save
           respond_to do |format|
             format.html { redirect_to @event, notice: 'Event was successfully created' }
@@ -62,8 +62,8 @@ class EventsController < ApplicationController
         #   @event_category ||= @event.event_category.find(params[:event_category_id])
         end
 
-        def find_correct_user
+        def find_correct_account
           @event ||= Event.find(params[:id])
-          redirect_to(events_url, status: :see_other, notice: 'Access Denied') unless current_user == @event.user  
+          redirect_to(events_url, status: :see_other, notice: 'Access Denied') unless current_account == @event.account  
         end
 end
