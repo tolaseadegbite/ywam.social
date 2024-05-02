@@ -9,7 +9,7 @@ class EventsController < ApplicationController
     end
 
     def show
-      
+      @event_talks = @event.event_talks.ordered
     end
 
     def new

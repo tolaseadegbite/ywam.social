@@ -1,3 +1,14 @@
 <h1><%= @event.name %></h1>
 <%= @event.details %>
 <div><%= @event.start_date.strftime("%B %d") %> at <%= @event.start_time.strftime("at %I:%M %p") %> - <%= @event.end_date.strftime("%B %d") %> <%= @event.end_time.strftime("at %I:%M %p") %></div>
+
+<h2>Speakers</h2>
+<ul>
+    <% @event_talks.each do |et| %>
+        <li>
+            <%= link_to event_event_talk_path(@event, et) do %>
+                <%= et.event_speaker.name %> | <%= et.title %>
+            <% end %>
+        </li>
+    <% end %>
+</ul>

@@ -31,7 +31,7 @@
 #
 class Event < ApplicationRecord
     # make sure the follwing event attributes are present before saving to database
-    validates :name, :start_date, :start_time, :end_date, :end_time, :time_zone, :details, :location, :streaming_link, :event_type, :cost_type, presence: true
+    validates :name, :start_date, :start_time, :time_zone, :details, :location, :streaming_link, :event_type, :cost_type, presence: true
 
     # associate event to a user
     belongs_to :user
