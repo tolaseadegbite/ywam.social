@@ -3,6 +3,7 @@
 # Table name: events
 #
 #  id                :bigint           not null, primary key
+#  cost_type         :integer
 #  details           :text
 #  end_date          :date
 #  end_time          :time

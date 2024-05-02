@@ -3,6 +3,7 @@
 # Table name: events
 #
 #  id                :bigint           not null, primary key
+#  cost_type         :integer
 #  details           :text
 #  end_date          :date
 #  end_time          :time
@@ -30,7 +31,7 @@
 #
 class Event < ApplicationRecord
     # make sure the follwing event attributes are present before saving to database
-    validates :name, :start_date, :start_time, :end_date, :end_time, :time_zone, :details, :location, :streaming_link, :event_type, presence: true
+    validates :name, :start_date, :start_time, :end_date, :end_time, :time_zone, :details, :location, :streaming_link, :event_type, :cost_type, presence: true
 
     # associate event to a user
     belongs_to :user
@@ -39,5 +40,11 @@ class Event < ApplicationRecord
     enum event_type: {
         online: 0,
         'in-person': 1
+    }
+
+    # cost type options
+    enum cost_type: {
+        free: 0,
+        paid: 1
     }
 end

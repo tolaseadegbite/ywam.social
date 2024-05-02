@@ -35,6 +35,11 @@
     </div>
 
     <div class="mb-3">
+        <%= f.label :cost_type %>
+        <%= f.select :cost_type, Event.cost_types.keys.map { |key| [key.humanize.capitalize, key] }, { include_blank: 'Is the event free of paid?' } %>
+    </div>
+
+    <div class="mb-3">
         <%= f.text_field :streaming_link, placeholder: 'Streaming link' %>
     </div>
 
