@@ -37,6 +37,8 @@ class User < ApplicationRecord
   # associates user to many events and delete events associated when a user is deleted from the database
   has_many :events, dependent: :destroy
 
-  # associates user to many eventcategories
+  # associates user to the following objects
   has_many :event_categories
+  has_many :event_speakers
+  has_many :event_talks
 end

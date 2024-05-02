@@ -36,6 +36,10 @@ class Event < ApplicationRecord
     # associate event to a user
     belongs_to :user
 
+    # associate the follwing objects to an event and also delete from database when the event is destroyed
+    has_many :event_speakers, dependent: :destroy
+    has_many :event_talks, dependent: :destroy
+
     # event types
     enum event_type: {
         online: 0,
