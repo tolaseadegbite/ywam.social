@@ -27,4 +27,5 @@ class EventSpeaker < ApplicationRecord
 
   # associate event speaker to the following objects and destoy them when the event speaker is deleted from the database
   has_many :event_talks, dependent: :destroy
+  has_many :speaker_profiles, dependent: :destroy
 end

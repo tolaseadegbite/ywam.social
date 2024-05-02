@@ -41,4 +41,5 @@ class User < ApplicationRecord
   has_many :event_categories
   has_many :event_speakers
   has_many :event_talks
+  has_many :speaker_profiles
 end
