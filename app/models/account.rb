@@ -38,7 +38,7 @@ class Account < ApplicationRecord
   validates :firstname, :surname, :username, :bio, :state, :country, presence: true, if: :individual?
 
   # make sure the follwing conditional account attributes for organization account type  are present before saving to database
-  validates :organization_name, :organization_type, :username, :bio, :state, :country, presence: true, if: :individual?
+  validates :organization_name, :organization_type, :username, :bio, :state, :country, presence: true, if: :organization?
 
   # associates account to many events and delete events associated when a account is deleted from the database
   has_many :events, dependent: :destroy

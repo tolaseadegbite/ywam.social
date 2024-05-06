@@ -1,6 +1,7 @@
 <h2>Sign up</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
   <%= turbo_frame_tag "account_types", data: {controller: "navigate"} do %>
     <%= f.label :account_type_individual do %>
       <%= f.radio_button :account_type, "individual",
