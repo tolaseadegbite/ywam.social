@@ -4,6 +4,12 @@
 
 import { application } from "./application"
 
+import FormElementController from "./form_element_controller"
+application.register("form-element", FormElementController)
+
+import FormRefreshController from "./form_refresh_controller"
+application.register("form-refresh", FormRefreshController)
+
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 

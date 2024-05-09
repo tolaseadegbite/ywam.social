@@ -6,6 +6,7 @@
 #  account_type           :integer          default("individual"), not null
 #  admin                  :boolean          default(FALSE)
 #  bio                    :string
+#  city                   :string
 #  country                :string
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
@@ -35,10 +36,19 @@ class Account < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   # make sure the follwing conditional account attributes for individual account type are present before saving to database
-  validates :firstname, :surname, :username, :bio, :state, :country, presence: true, if: :individual?
+  validates :firstname, :surname, :username, :bio, presence: true, if: :individual?
 
-  # make sure the follwing conditional account attributes for organization account type  are present before saving to database
-  validates :organization_name, :organization_type, :username, :bio, :state, :country, presence: true, if: :organization?
+  # make sure the follwing conditional account attributes for organization account type are present before saving to database
+  validates :organization_name, :organization_type, :username, :bio, presence: true, if: :organization?
+
+  # validates that the following attributes are present before saving to database
+  validates :country, presence: true
+  validates :state, presence: { if: ->(record) { record.states.present? } }
+  validates :city, presence: { if: ->(record) { record.cities.present? } }
+
+  # validates that states and cities must belong to proper parent
+  validates :state, inclusion: { in: ->(record) { record.states.keys }, allow_blank: true }
+  validates :city, inclusion: { in: ->(record) { record.cities }, allow_blank: true }
 
   # associates account to many events and delete events associated when a account is deleted from the database
   has_many :events, dependent: :destroy
@@ -48,6 +58,8 @@ class Account < ApplicationRecord
   has_many :event_speakers
   has_many :event_talks
   has_many :speaker_profiles
+
+  has_many :addresses, dependent: :destroy
 
   # account type options
   enum account_type: {
@@ -67,5 +79,25 @@ class Account < ApplicationRecord
 
   def individual?
     account_type == 'individual'
+  end
+
+  def countries
+    CS.countries.with_indifferent_access
+  end  
+
+  def states
+    CS.states(country).with_indifferent_access
+  end
+
+  def cities
+    CS.cities(state, country) || []
+  end
+
+  def country_label
+    countries[country]
+  end
+
+  def state_label
+    states[state]
   end
 end

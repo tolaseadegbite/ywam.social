@@ -6,8 +6,9 @@ class Accounts::RegistrationsController < Devise::RegistrationsController
 
   # GET /resource/sign_up
   def new
-    # super
-    @account = Account.new(params.fetch(:account, {}).permit(:account_type))
+    super do |account|
+      @account = Account.new(params.fetch(:account, {}).permit(:account_type, :country, :state, :city))
+    end
   end
 
   # POST /resource
@@ -16,9 +17,13 @@ class Accounts::RegistrationsController < Devise::RegistrationsController
   # end
 
   # GET /resource/edit
-  # def edit
-  #   super
-  # end
+  def edit
+    # super
+    super do |account|
+      @account = Account.new(params.fetch(:account, {}).permit(:account_type, :country, :state, :city))
+    end
+    # @account = Account.find(params[:id]).update(params.fetch(:account, {}).permit(:account_type, :country, :state, :city))
+  end
 
   # PUT /resource
   # def update
@@ -43,12 +48,12 @@ class Accounts::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :firstname, :surname, :state, :country, :bio, :account_type, :organization_name, :organization_type])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :firstname, :surname, :city, :state, :country, :bio, :account_type, :organization_name, :organization_type])
   end
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_account_update_params
-    devise_parameter_sanitizer.permit(:account_update, keys: [:username, :firstname, :surname, :state, :country, :bio, :account_type, :organization_name, :organization_type])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:username, :firstname, :surname, :city, :state, :country, :bio, :account_type, :organization_name, :organization_type])
   end
 
   # The path used after sign up.
