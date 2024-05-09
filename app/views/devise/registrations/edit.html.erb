@@ -66,26 +66,26 @@
     <%= f.text_field :username, autocomplete: "username" %>
   </div>
 
-  <%= turbo_frame_tag :cs_select do %>
+  <!--<%#= turbo_frame_tag :cs_select do %>
     <div data-controller="form-element">
-      <%= f.button "Validate", formaction: edit_account_registration_path, formmethod: 'get', data: { form_element_target: "remoteBtn", turbo_frame: :cs_select } %>
+      <%#= f.button "Validate", formaction: edit_account_registration_path, formmethod: 'get', data: { form_element_target: "remoteBtn", turbo_frame: :cs_select } %>
 
       <div class="field">
-        <%= f.label :country %><br />
-        <%= f.select :country, resource.countries.invert, { include_blank: 'Select your country' }, { data: { action: "change->form-element#autosubmit" } } %>
+        <%#= f.label :country %><br />
+        <%#= f.select :country, resource.countries.invert, { include_blank: 'Select your country' }, { data: { action: "change->form-element#autosubmit" } } %>
       </div>
 
       <div class="field">
-        <%= f.label :state %><br />
-        <%= f.select :state, resource.states.invert, { include_blank: 'Select your state' }, { data: { action: "change->form-element#autosubmit" } } %>
+        <%#= f.label :state %><br />
+        <%#= f.select :state, resource.states.invert, { include_blank: 'Select your state' }, { data: { action: "change->form-element#autosubmit" } } %>
       </div>
     </div>
     
     <div class="field">
-      <%= f.label :city %><br />
-      <%= f.select :city, resource.cities, { include_blank: 'Select your city' }, {} %>
+      <%#= f.label :city %><br />
+      <%#= f.select :city, resource.cities, { include_blank: 'Select your city' }, {} %>
     </div>
-  <% end %>
+  <%# end %> -->
 
   <div class="field">
     <%= f.label :bio %><br />

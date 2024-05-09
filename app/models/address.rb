@@ -19,6 +19,15 @@
 #  fk_rails_...  (account_id => accounts.id)
 #
 class Address < ApplicationRecord
+  # validates that the following attributes are present before saving to database
+  validates :country, presence: true
+  validates :state, presence: { if: ->(record) { record.states.present? } }
+  validates :city, presence: { if: ->(record) { record.cities.present? } }
+
+  # validates that states and cities must belong to proper parent
+  validates :state, inclusion: { in: ->(record) { record.states.keys }, allow_blank: true }
+  validates :city, inclusion: { in: ->(record) { record.cities }, allow_blank: true }
+
   belongs_to :account
 
   def countries

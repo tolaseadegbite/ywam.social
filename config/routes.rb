@@ -9,4 +9,8 @@ Rails.application.routes.draw do
   resources :events do
     resources :event_talks
   end
+
+  resources :accounts do
+    resources :addresses
+  end
 end

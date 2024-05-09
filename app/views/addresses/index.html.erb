@@ -1,0 +1,8 @@
+<h1>Your Addresses</h1>
+<p><%= link_to 'Add address', new_account_address_path(current_account) %></p>
+
+<ul>
+    <% @addresses.each do |address| %>
+        <li><%= address.country_label %> | <%= address.state_label %> | <%= address.city %></li>
+    <% end %>
+</ul>

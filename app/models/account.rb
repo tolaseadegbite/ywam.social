@@ -6,8 +6,6 @@
 #  account_type           :integer          default("individual"), not null
 #  admin                  :boolean          default(FALSE)
 #  bio                    :string
-#  city                   :string
-#  country                :string
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  firstname              :string
@@ -17,7 +15,6 @@
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
-#  state                  :string
 #  surname                :string
 #  username               :string           not null
 #  created_at             :datetime         not null

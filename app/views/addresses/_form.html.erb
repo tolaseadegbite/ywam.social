@@ -1,0 +1,28 @@
+<%= form_with model: [account, address] do |f| %>
+    <%= render 'layouts/errors', f: f %>
+
+    <%= turbo_frame_tag :cs_select do %>
+        <div data-controller="form-element">
+            <%= f.button "Validate", formaction: new_account_address_path, formmethod: 'get', data: { form_element_target: "remoteBtn", turbo_frame: :cs_select } %>
+
+            <div class="field">
+                <%= f.label :country %><br />
+                <%= f.select :country, address.countries.invert, { include_blank: 'Select your country' }, { data: { action: "change->form-element#autosubmit" } } %>
+            </div>
+
+            <div class="field">
+                <%= f.label :state %><br />
+                <%= f.select :state, address.states.invert, { include_blank: 'Select your state' }, { data: { action: "change->form-element#autosubmit" } } %>
+            </div>
+        </div>
+        
+        <div class="field">
+            <%= f.label :city %><br />
+            <%= f.select :city, address.cities, { include_blank: 'Select your city' }, {} %>
+        </div>
+    <% end %>
+
+    <div class="mb-3">
+        <%= f.submit %>
+    </div>
+<% end %>
