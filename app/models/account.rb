@@ -38,14 +38,9 @@ class Account < ApplicationRecord
   # make sure the follwing conditional account attributes for organization account type are present before saving to database
   validates :organization_name, :organization_type, :username, :bio, presence: true, if: :organization?
 
-  # validates that the following attributes are present before saving to database
-  validates :country, presence: true
-  validates :state, presence: { if: ->(record) { record.states.present? } }
-  validates :city, presence: { if: ->(record) { record.cities.present? } }
+  scope :all_except, -> (account) { where.not(id: account) }
 
-  # validates that states and cities must belong to proper parent
-  validates :state, inclusion: { in: ->(record) { record.states.keys }, allow_blank: true }
-  validates :city, inclusion: { in: ->(record) { record.cities }, allow_blank: true }
+  after_create_commit { broadcast_append_to "accounts" }
 
   # associates account to many events and delete events associated when a account is deleted from the database
   has_many :events, dependent: :destroy
@@ -57,6 +52,7 @@ class Account < ApplicationRecord
   has_many :speaker_profiles
 
   has_many :addresses, dependent: :destroy
+  has_many :messages, dependent: :destroy
 
   # account type options
   enum account_type: {

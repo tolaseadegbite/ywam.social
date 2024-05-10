@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_09_011454) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_09_195323) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -126,6 +126,23 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_09_011454) do
     t.index ["event_category_id"], name: "index_events_on_event_category_id"
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.bigint "room_id", null: false
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_messages_on_account_id"
+    t.index ["room_id"], name: "index_messages_on_room_id"
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.string "name"
+    t.boolean "is_private", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "speaker_profiles", force: :cascade do |t|
     t.string "name"
     t.string "link"
@@ -148,6 +165,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_09_011454) do
   add_foreign_key "event_talks", "events"
   add_foreign_key "events", "accounts"
   add_foreign_key "events", "event_categories"
+  add_foreign_key "messages", "accounts"
+  add_foreign_key "messages", "rooms"
   add_foreign_key "speaker_profiles", "accounts"
   add_foreign_key "speaker_profiles", "event_speakers"
 end

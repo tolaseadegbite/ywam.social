@@ -1,0 +1,6 @@
+<%= form_with model: @room, remote: true, class: 'd-flex gap-2' do |f| %>
+    <%= render 'layouts/errors', f: f %>
+
+    <%= f.text_field :name, placeholder: 'Room name', class: 'form-control' %>
+    <%= f.submit 'Create room', class: 'btn btn-primary' %>
+<% end %>

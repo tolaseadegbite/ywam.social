@@ -8,11 +8,23 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+
+    <style>
+      <%= ".msg-#{current_account&.id}" %> {
+        background-color: #007bff !important;
+        padding: 10px;
+      }
+      <%= ".cont-#{current_account&.id}" %> {
+        display: flex;
+        justify-content: flex-end
+      }
+    </style>
   </head>
 
   <body>
     <% if account_signed_in? %>
       <%= current_account.username %> |
+      <%=  link_to 'Start chatting', rooms_path %> |
       <%= link_to 'Account settings', edit_account_registration_path %> |
       <%= link_to 'Sign out', destroy_account_session_path, data: { turbo_method: :delete, turbo_confirm: 'You are about to logout..' } %>
     <% else %> 
