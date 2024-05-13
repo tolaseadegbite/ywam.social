@@ -1,10 +1,17 @@
 Rails.application.routes.draw do
+
+  resources :rooms do
+    resources :messages
+  end
+  
   devise_for :accounts, controllers: {
     registrations: 'accounts/registrations'
   }
   get "up" => "rails/health#show", as: :rails_health_check
 
   root to: 'static_pages#home'
+
+  get 'account/:id', to: 'accounts#show', as: 'account'
   
   resources :events do
     resources :event_talks
@@ -12,10 +19,6 @@ Rails.application.routes.draw do
 
   resources :accounts do
     resources :addresses
-  end
-
-  resources :rooms do
-    resources :messages
   end
 
   get ':username', to: 'profiles#show', as: 'profile'
