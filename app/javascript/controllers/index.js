@@ -18,3 +18,9 @@ application.register("navigate", NavigateController)
 
 import RemovalsController from "./removals_controller"
 application.register("removals", RemovalsController)
+
+import ResetFormController from "./reset_form_controller"
+application.register("reset-form", ResetFormController)
+
+import ScrollController from "./scroll_controller"
+application.register("scroll", ScrollController)
