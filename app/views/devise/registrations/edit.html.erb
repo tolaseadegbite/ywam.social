@@ -88,6 +88,19 @@
   <%# end %> -->
 
   <div class="field">
+    <% if resource.avatar.attached? %>
+      <%= image_tag(resource.avatar_thumbnail) %>
+    <% else %>
+      <% image_tag('/assets/default_profile.jpg', style: 'width:150px; height: 150px;') %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= f.label :avatar %><br />
+    <%= f.file_field :avatar %>
+  </div>
+
+  <div class="field">
     <%= f.label :bio %><br />
     <%= f.text_area :bio, autocomplete: "bio" %>
   </div>

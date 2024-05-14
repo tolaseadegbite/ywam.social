@@ -1,8 +1,14 @@
 <div class="cont-<%= message.account.id %>">
     <div class="message-box msg-<%= message.account.id %>">
-        <% unless message.room.is_private? %>
-            <h6 class="name"><%= message.account.username %></h6>
-        <% end %>
+        <div class="d-flex align-items-center">
+            <%= image_tag(message.account.avatar, class: 'chat_pfp') %>
+            <div>
+                <h6 class="name"><%= message.account.username %></h6>
+                <p class="time"><small><%= time_ago_in_words(message.created_at) %> ago</small></p>
+            </div>
+        </div>
+        <%# unless message.room.is_private? %>
+        <%# end %>
         <%= message.body %>
     </div>
 </div>

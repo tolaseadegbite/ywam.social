@@ -11,6 +11,7 @@ gem 'city-state'
 gem "cssbundling-rails"
 gem "jbuilder"
 gem "jsbundling-rails"
+gem "mini_magick"
 gem "pg", "~> 1.1"
 gem "puma", ">= 5.0"
 gem "redis", ">= 4.0.1"

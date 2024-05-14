@@ -1,6 +1,6 @@
 <div id="chatroom_container" class="container row bg-dark text-light">
     <div id="side_panel" class="col-md-3 col-sm-3">
-        <h5><%= current_account.username %></h5>
+        <h5><%= image_tag(current_account.chat_avatar, class: 'chat_pfp') %><%= current_account.username %></h5>
 
         <h4>Accounts</h4>
 

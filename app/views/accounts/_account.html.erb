@@ -1,3 +1,11 @@
-<div>
-    <%= link_to account.username, account %>
-</div>
+<% if @single_room && @single_room.participant?(@single_room, account) %>
+    <% isActive = 'active' %>
+<% else %>
+    <% isActive = '' %>
+<% end %>
+<li class="list-group-item d-flex align-items-center justify-content-between user_list_item ps-2">
+    <%= link_to account, class: 'text-decoration-none' do %>
+        <%= image_tag(account.chat_avatar, class: 'chat_pfp') %>
+        <%= account.username %>
+    <% end %>
+</li>
