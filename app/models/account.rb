@@ -15,6 +15,7 @@
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
+#  status                 :integer          default(0)
 #  surname                :string
 #  username               :string           not null
 #  created_at             :datetime         not null
@@ -39,8 +40,8 @@ class Account < ApplicationRecord
   validates :organization_name, :organization_type, :username, :bio, presence: true, if: :organization?
 
   scope :all_except, -> (account) { where.not(id: account) }
-
   after_create_commit { broadcast_append_to "accounts" }
+  after_update_commit { broadcast_update }
 
   # associates account to many events and delete events associated when a account is deleted from the database
   has_many :events, dependent: :destroy
@@ -106,6 +107,25 @@ class Account < ApplicationRecord
 
   def chat_avatar
     avatar.variant(resize_to_limit: [50, 50]).processed
+  end
+  
+  enum status: %i[offline away online]
+  
+  def broadcast_update
+    broadcast_replace_to 'account_status', partial: 'accounts/status', account: self
+  end
+
+  def status_to_css
+    case status
+    when 'online'
+      'bg-success'
+    when 'away'
+      'bg-warning'
+    when 'offline'
+      'bg-dark'
+    else
+      'bg-dark'
+    end
   end
 
   private

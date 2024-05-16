@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   end
   
   devise_for :accounts, controllers: {
+    sessions: 'accounts/sessions',
     registrations: 'accounts/registrations'
   }
   get "up" => "rails/health#show", as: :rails_health_check

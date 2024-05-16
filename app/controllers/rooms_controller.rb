@@ -1,5 +1,6 @@
 class RoomsController < ApplicationController
   before_action :authenticate_account!
+  before_action :set_status
 
   def index
     @room = Room.new
@@ -31,5 +32,9 @@ class RoomsController < ApplicationController
 
     def room_params
       params.require(:room).permit(:name)
+    end
+
+    def set_status
+      current_account.update!(status: Account.statuses[:online]) if current_account
     end
 end
