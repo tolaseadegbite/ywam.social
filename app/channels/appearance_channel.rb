@@ -22,7 +22,7 @@ class AppearanceChannel < ApplicationCable::Channel
   def offline
     status = Account.statuses[:offline]
     broadcast_new_status(status)
-  end
+  end 
 
   def receive(data)
     ActionCable.server.broadcast('appearance_channel', data)
@@ -30,7 +30,8 @@ class AppearanceChannel < ApplicationCable::Channel
 
   private
 
+  # This is supposed to be "current_account" but for some reason, current_user is what worked
   def broadcast_new_status(status)
-    current_account.update!(status: status)
+    current_user.update!(status: status)
   end
 end

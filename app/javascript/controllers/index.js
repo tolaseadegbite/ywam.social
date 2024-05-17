@@ -4,23 +4,31 @@
 
 import { application } from "./application"
 
-import FormElementController from "./form_element_controller"
-application.register("form-element", FormElementController)
+import controllers from "./**/*_controller.js"
+controllers.forEach((controller) => {
+  application.register(controller.name, controller.module.default)
+})
 
-import FormRefreshController from "./form_refresh_controller"
-application.register("form-refresh", FormRefreshController)
+// import FormElementController from "./form_element_controller"
+// application.register("form-element", FormElementController)
 
-import HelloController from "./hello_controller"
-application.register("hello", HelloController)
+// import FormRefreshController from "./form_refresh_controller"
+// application.register("form-refresh", FormRefreshController)
 
-import NavigateController from "./navigate_controller"
-application.register("navigate", NavigateController)
+// import HelloController from "./hello_controller"
+// application.register("hello", HelloController)
 
-import RemovalsController from "./removals_controller"
-application.register("removals", RemovalsController)
+// import MessagePreviewController from "./message_preview_controller"
+// application.register("message-preview", MessagePreviewController)
 
-import ResetFormController from "./reset_form_controller"
-application.register("reset-form", ResetFormController)
+// import NavigateController from "./navigate_controller"
+// application.register("navigate", NavigateController)
 
-import ScrollController from "./scroll_controller"
-application.register("scroll", ScrollController)
+// import RemovalsController from "./removals_controller"
+// application.register("removals", RemovalsController)
+
+// import ResetFormController from "./reset_form_controller"
+// application.register("reset-form", ResetFormController)
+
+// import ScrollController from "./scroll_controller"
+// application.register("scroll", ScrollController)

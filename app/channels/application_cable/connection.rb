@@ -1,16 +1,18 @@
 module ApplicationCable
   class Connection < ActionCable::Connection::Base
-    identified_by :current_account
+    # This is supposed to be "current_account" but for some reason, current_user is what worked
+    identified_by :current_user
 
     def connect
-      self.current_account = find_verified_account
+      self.current_user = find_verified_user
     end
 
     private
 
-    def find_verified_account
-      if verified_account = env['warden'].account
-        verified_account
+    def find_verified_user
+      
+      if verified_user = env['warden'].user
+        verified_user
       else
         reject_unauthorized_connection
       end
