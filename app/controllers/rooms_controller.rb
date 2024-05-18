@@ -17,7 +17,10 @@ class RoomsController < ApplicationController
     @rooms = Room.public_rooms
 
     @message = Message.new
-    @messages = @single_room.messages.order(id: :asc)
+    
+    pagy_messages = @single_room.messages.order(id: :desc)
+    @pagy, messages = pagy(pagy_messages, items: 20)
+    @messages = messages.reverse
 
     @accounts = Account.all_except(current_account)
 

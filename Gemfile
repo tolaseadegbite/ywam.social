@@ -12,6 +12,7 @@ gem "cssbundling-rails"
 gem "jbuilder"
 gem "jsbundling-rails"
 gem "mini_magick"
+gem "pagy", "~> 8.4"
 gem "pg", "~> 1.1"
 gem "puma", ">= 5.0"
 gem "redis", ">= 4.0.1"
@@ -50,3 +51,4 @@ end
 group :production do
   gem "aws-sdk-s3", "1.114.0", require: false
 end
+

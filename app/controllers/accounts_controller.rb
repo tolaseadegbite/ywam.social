@@ -10,7 +10,11 @@ class AccountsController < ApplicationController
     @single_room = Room.where(name: @room_name).first || Room.create_private_room([@account, current_account], @room_name)
 
     @message = Message.new
-    @messages = @single_room.messages.order(created_at: :asc)
+
+    pagy_messages = @single_room.messages.order(id: :desc)
+    @pagy, messages = pagy(pagy_messages, items: 5)
+    @messages = messages.reverse
+    
     render 'rooms/index'
   end
 
