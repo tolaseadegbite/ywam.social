@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_14_191608) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_19_010940) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -32,6 +32,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_14_191608) do
     t.string "organization_name"
     t.integer "organization_type", default: 0, null: false
     t.integer "status", default: 0
+    t.integer "current_account"
     t.index ["email"], name: "index_accounts_on_email", unique: true
     t.index ["reset_password_token"], name: "index_accounts_on_reset_password_token", unique: true
     t.index ["username"], name: "index_accounts_on_username", unique: true
@@ -127,6 +128,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_14_191608) do
     t.index ["event_category_id"], name: "index_events_on_event_category_id"
   end
 
+  create_table "joinables", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.bigint "room_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_joinables_on_account_id"
+    t.index ["room_id"], name: "index_joinables_on_room_id"
+  end
+
   create_table "messages", force: :cascade do |t|
     t.bigint "account_id", null: false
     t.bigint "room_id", null: false
@@ -175,6 +185,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_14_191608) do
   add_foreign_key "event_talks", "events"
   add_foreign_key "events", "accounts"
   add_foreign_key "events", "event_categories"
+  add_foreign_key "joinables", "accounts"
+  add_foreign_key "joinables", "rooms"
   add_foreign_key "messages", "accounts"
   add_foreign_key "messages", "rooms"
   add_foreign_key "participants", "accounts"

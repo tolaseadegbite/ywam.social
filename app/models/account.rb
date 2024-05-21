@@ -6,6 +6,7 @@
 #  account_type           :integer          default("individual"), not null
 #  admin                  :boolean          default(FALSE)
 #  bio                    :string
+#  current_account        :integer
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  firstname              :string
@@ -15,7 +16,7 @@
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
-#  status                 :integer          default(0)
+#  status                 :integer          default("offline")
 #  surname                :string
 #  username               :string           not null
 #  created_at             :datetime         not null
@@ -54,6 +55,12 @@ class Account < ApplicationRecord
 
   has_many :addresses, dependent: :destroy
   has_many :messages, dependent: :destroy
+  has_many :joinables, dependent: :destroy
+  has_many :joined_rooms, through: :joinables, source: :room
+
+  def has_joined_room(room)
+    joined_rooms.include?(room)
+  end
 
   # account avatar
   has_one_attached :avatar
