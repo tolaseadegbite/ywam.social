@@ -3,7 +3,7 @@
 <% else %>
     <% isActive = '' %>
 <% end %>
-<li class="list-group-item d-flex align-items-center justify-content-between user_list_item ps-2 <%= isActive %>">
+<li class="list-group-item d-flex my-1 align-items-center justify-content-between user_list_item ps-2 <%= isActive %>">
     <div class="icon-container">
         <%= link_to image_tag(account.chat_avatar, class: 'chat_pfp'), account %>
         <%= turbo_stream_from "account_status" %>
@@ -11,5 +11,5 @@
             <%= render "accounts/status", account: account %>
         </div>
     </div>
-    <%= link_to account.username, account, class: 'ms-2 me-auto username text-decoration-none' %>
+    <%= link_to account.username, account, class: 'ms-2 me-auto username text-decoration-none text-white' %>
 </li>

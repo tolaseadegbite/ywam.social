@@ -87,3 +87,18 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+.last-message {
+  color: #aaa;
+  margin-top: 5px;
+}
+
+.chatroom-wrapper {
+  background-color: #141414;
+  a {
+    text-decoration: none;
+    &:hover, &:focus {
+      text-decoration: underline;
+    }
+  }
+}

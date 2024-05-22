@@ -5,7 +5,7 @@ class RoomsController < ApplicationController
 
   def index
     @room = Room.new
-    @joined_rooms = current_account.joined_rooms
+    @joined_rooms = current_account.joined_rooms.order('last_message_at DESC')
     @rooms = search_rooms
     
     @accounts = Account.all_except(current_account)
@@ -18,7 +18,7 @@ class RoomsController < ApplicationController
 
     @room = Room.new
     @rooms = search_rooms
-    @joined_rooms = current_account.joined_rooms
+    @joined_rooms = current_account.joined_rooms.order('last_message_at DESC')
 
     @message = Message.new
     
