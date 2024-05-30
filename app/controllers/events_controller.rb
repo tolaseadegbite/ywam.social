@@ -13,7 +13,7 @@ class EventsController < ApplicationController
     end
 
     def new
-      @event = Event.new
+      @event = Event.new event_params
     end
 
     def create
@@ -50,20 +50,20 @@ class EventsController < ApplicationController
 
     private
 
-        def event_params
-          params.require(:event).permit(:name, :start_date, :start_time, :end_date, :end_time, :details, :streaming_link, :time_zone, :event_category_id, :location, :event_type, :cost_type)
-        end
+      def event_params
+        params.fetch(:event, {}).permit(:name, :start_date, :start_time, :end_date, :end_time, :details, :streaming_link, :time_zone, :event_category_id, :event_type, :cost_type, :country, :state, :city, :street_address)
+      end
 
-        def find_event
-          @event ||= Event.find(params[:id])
-        end
+      def find_event
+        @event ||= Event.find(params[:id])
+      end
 
-        def find_event_category
-        #   @event_category ||= @event.event_category.find(params[:event_category_id])
-        end
+      def find_event_category
+      #   @event_category ||= @event.event_category.find(params[:event_category_id])
+      end
 
-        def find_correct_account
-          @event ||= Event.find(params[:id])
-          redirect_to(events_url, status: :see_other, notice: 'Access Denied') unless current_account == @event.account  
-        end
+      def find_correct_account
+        @event ||= Event.find(params[:id])
+        redirect_to(events_url, status: :see_other, notice: 'Access Denied') unless current_account == @event.account  
+      end
 end

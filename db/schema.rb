@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_21_192341) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_29_233024) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -114,9 +114,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_21_192341) do
     t.time "start_time"
     t.date "end_date"
     t.time "end_time"
-    t.integer "time_zone"
     t.text "details"
-    t.string "location"
+    t.string "street_address"
     t.string "streaming_link"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -124,6 +123,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_21_192341) do
     t.bigint "event_category_id", null: false
     t.integer "event_type"
     t.integer "cost_type"
+    t.string "country"
+    t.string "state"
+    t.string "city"
+    t.string "time_zone"
     t.index ["account_id"], name: "index_events_on_account_id"
     t.index ["event_category_id"], name: "index_events_on_event_category_id"
   end

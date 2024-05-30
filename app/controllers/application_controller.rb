@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
     include Pagy::Backend
     before_action :turbo_frame_request_variant
-    before_action :set_current_account
+    # before_action :set_current_account
 
     private
 

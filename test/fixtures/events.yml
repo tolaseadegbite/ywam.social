@@ -3,17 +3,20 @@
 # Table name: events
 #
 #  id                :bigint           not null, primary key
+#  city              :string
 #  cost_type         :integer
+#  country           :string
 #  details           :text
 #  end_date          :date
 #  end_time          :time
 #  event_type        :integer
-#  location          :string
 #  name              :string
 #  start_date        :date
 #  start_time        :time
+#  state             :string
 #  streaming_link    :string
-#  time_zone         :integer
+#  street_address    :string
+#  time_zone         :string
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  account_id        :bigint           not null

@@ -1,6 +1,7 @@
+<%= link_to 'Edit', edit_event_path(@event) %>
 <h1><%= @event.name %></h1>
 <%= @event.details %>
-<div><%= @event.start_date.strftime("%B %d") %> at <%= @event.start_time.strftime("at %I:%M %p") %> - <%= @event.end_date.strftime("%B %d") %> <%= @event.end_time.strftime("at %I:%M %p") %></div>
+<div><%= @event.start_date.strftime("%B %d") %> at <%= @event.start_time.strftime("at %I:%M %p") %> - <%= @event.end_date.strftime("%B %d") %> <%= @event.end_time.strftime("at %I:%M %p") %> (<%= @event.time_zone %>)</div>
 
 <h2>Speakers</h2>
 <ul>

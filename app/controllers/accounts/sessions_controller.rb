@@ -14,11 +14,11 @@ class Accounts::SessionsController < Devise::SessionsController
   # end
 
   # DELETE /resource/sign_out
-  def destroy
-    ActionCable.server.remote_connections.where(current_account: current_account).disconnect
-    current_account.update(status: Account.statuses[:offline])
-    super
-  end
+  # def destroy
+  #   ActionCable.server.remote_connections.where(current_account: current_account).disconnect
+  #   current_account.update(status: Account.statuses[:offline])
+  #   super
+  # end
 
   # protected
 

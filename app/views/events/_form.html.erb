@@ -44,11 +44,33 @@
     </div>
 
     <div class="mb-3">
-        <%= f.number_field :time_zone, placeholder: 'Time zone' %>
+        <%#= f.number_field :time_zone, placeholder: 'Time zone' %>
+        <%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones %>
     </div>
 
+    <%= turbo_frame_tag :cs_select do %>
+        <div data-controller="form-element">
+            <%= f.button "Validate", formaction: new_event_path, formmethod: 'get', data: { form_element_target: "remoteBtn", turbo_frame: :cs_select } %>
+
+            <div class="field">
+                <%= f.label :country %><br />
+                <%= f.select :country, event.countries.invert, { include_blank: 'Which country is this event happening?' }, { data: { action: "change->form-element#autosubmit" } } %>
+            </div>
+
+            <div class="field">
+                <%= f.label :state %><br />
+                <%= f.select :state, event.states.invert, { include_blank: 'Which state is this event happening?' }, { data: { action: "change->form-element#autosubmit" } } %>
+            </div>
+        </div>
+        
+        <div class="field">
+            <%= f.label :city %><br />
+            <%= f.select :city, event.cities, { include_blank: 'Which country is this city happening?' }, {} %>
+        </div>
+    <% end %>
+
     <div class="mb-3">
-        <%= f.text_field :location, placeholder: 'Event location' %>
+        <%= f.text_field :street_address, placeholder: 'Street address' %>
     </div>
 
     <div class="mb-3">

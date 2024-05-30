@@ -24,7 +24,7 @@ class Address < ApplicationRecord
   validates :state, presence: { if: ->(record) { record.states.present? } }
   validates :city, presence: { if: ->(record) { record.cities.present? } }
 
-  # validates that states and cities must belong to proper parent
+  # validates that states belong to proper country and cities belong to proper state
   validates :state, inclusion: { in: ->(record) { record.states.keys }, allow_blank: true }
   validates :city, inclusion: { in: ->(record) { record.cities }, allow_blank: true }
 

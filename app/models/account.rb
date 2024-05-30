@@ -48,7 +48,6 @@ class Account < ApplicationRecord
   has_many :events, dependent: :destroy
 
   # associates account to the following objects
-  has_many :event_categories
   has_many :event_speakers
   has_many :event_talks
   has_many :speaker_profiles
