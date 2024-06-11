@@ -37,8 +37,8 @@ class Event < ApplicationRecord
     validates :name, :start_date, :start_time, :time_zone, :details, :streaming_link, :event_type, :cost_type, presence: true
 
     # validates that states belong to proper country and cities belong to proper state
-  validates :state, inclusion: { in: ->(record) { record.states.keys }, allow_blank: true }
-  validates :city, inclusion: { in: ->(record) { record.cities }, allow_blank: true }
+    validates :state, inclusion: { in: ->(record) { record.states.keys }, allow_blank: true }
+    validates :city, inclusion: { in: ->(record) { record.cities }, allow_blank: true }
 
     # associate event to a account
     belongs_to :account

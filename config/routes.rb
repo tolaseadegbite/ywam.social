@@ -21,9 +21,11 @@ Rails.application.routes.draw do
   root to: 'static_pages#home'
 
   get 'account/:id', to: 'accounts#show', as: 'account'
-  
-  resources :events do
-    resources :event_talks
+    
+  namespace :host do
+    resources :events do
+      resources :event_talks
+    end
   end
 
   resources :accounts do

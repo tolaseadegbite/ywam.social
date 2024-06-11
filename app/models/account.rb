@@ -57,10 +57,6 @@ class Account < ApplicationRecord
   has_many :joinables, dependent: :destroy
   has_many :joined_rooms, through: :joinables, source: :room
 
-  def has_joined_room(room)
-    joined_rooms.include?(room)
-  end
-
   # account avatar
   has_one_attached :avatar
 
