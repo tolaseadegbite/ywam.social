@@ -47,6 +47,17 @@ class Event < ApplicationRecord
     has_many :event_speakers, dependent: :destroy
     has_many :event_talks, dependent: :destroy
 
+    has_many :event_co_hosts, dependent: :destroy
+    has_many :co_hosts, through: :event_co_hosts, source: :account
+
+    def add_co_host(account)
+        event_co_hosts.create(account: account, role: :co_host, status: :pending)
+    end
+
+    def remove_co_host(account)
+        event_co_hosts.find_by(account: account)&.destroy
+    end
+
     # event types
     enum event_type: {
         online: 0,

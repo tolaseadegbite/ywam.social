@@ -28,6 +28,16 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :events, only: [:index, :show] do
+    member do
+      post 'add_co_host'
+      delete 'remove_co_host'
+      post 'accept_co_host'
+      post 'decline_co_host'
+    end
+  end
+
+
   resources :accounts do
     resources :addresses
   end

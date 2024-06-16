@@ -1,14 +1,42 @@
-<h1><%= @event.name %></h1>
+<h1><%= @event.name %> - posted by: <%= @event.account.username %></h1>
 <%= @event.details %>
 <div><%= @event.start_date.strftime("%B %d") %> at <%= @event.start_time.strftime("at %I:%M %p") %> - <%= @event.end_date.strftime("%B %d") %> <%= @event.end_time.strftime("at %I:%M %p") %> (<%= @event.time_zone %>)</div>
 
+<h3>Co-Hosts</h3>
+<ul>
+  <% @event.event_co_hosts.order(status: :asc).each do |co_host_record| %>
+    <li>
+      <%= co_host_record.account.username %> - <%= co_host_record.status.capitalize %>
+      <% if co_host_record.pending? && co_host_record.account == current_account %>
+        <%= button_to 'Accept', accept_co_host_event_path(@event, account_id: co_host_record.account.id), method: :post %>
+        <%= button_to 'Decline', decline_co_host_event_path(@event, account_id: co_host_record.account.id), method: :post %>
+      <% elsif (co_host_record.accepted? || co_host_record.declined?) && current_account == @event.account %>
+        <%= button_to 'Remove', remove_co_host_event_path(@event, account_id: co_host_record.account.id), method: :delete, data: { confirm: 'Are you sure?' } %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+
+<% if @event.account == current_account %>
+  <h2>Add Co-Host</h2>
+  <%= form_with url: add_co_host_event_path(@event), method: :post, local: true do |form| %>
+    <div class="field">
+      <%= label_tag :account_id, "Select Account" %>
+      <%= select_tag :account_id, options_from_collection_for_select(@accounts, :id, :username) %>
+    </div>
+    <div class="actions">
+      <%= form.submit "Add Co-Host" %>
+    </div>
+  <% end %>
+<% end %>
+
 <h2>Speakers</h2>
 <ul>
-    <% @event_talks.each do |et| %>
-        <li>
-            <%= link_to event_event_talk_path(@event, et) do %>
-                <%= et.event_speaker.name %> | <%= et.title %>
-            <% end %>
-        </li>
-    <% end %>
+  <% @event_talks.each do |et| %>
+    <li>
+      <%= link_to event_event_talk_path(@event, et) do %>
+        <%= et.event_speaker.name %> | <%= et.title %>
+      <% end %>
+    </li>
+  <% end %>
 </ul>

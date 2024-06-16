@@ -57,6 +57,9 @@ class Account < ApplicationRecord
   has_many :joinables, dependent: :destroy
   has_many :joined_rooms, through: :joinables, source: :room
 
+  has_many :event_co_hosts, dependent: :destroy
+  has_many :co_hosted_events, through: :event_co_hosts, source: :event
+
   # account avatar
   has_one_attached :avatar
 
