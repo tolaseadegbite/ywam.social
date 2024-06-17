@@ -4,14 +4,12 @@
 
 <h3>Co-Hosts</h3>
 <ul>
-  <% @event.event_co_hosts.order(status: :asc).each do |co_host_record| %>
+  <% @event.event_co_hosts.where.not(status: :declined).order(status: :asc).each do |co_host_record| %>
     <li>
       <%= co_host_record.account.username %> - <%= co_host_record.status.capitalize %>
       <% if co_host_record.pending? && co_host_record.account == current_account %>
         <%= button_to 'Accept', accept_co_host_event_path(@event, account_id: co_host_record.account.id), method: :post %>
         <%= button_to 'Decline', decline_co_host_event_path(@event, account_id: co_host_record.account.id), method: :post %>
-      <% elsif (co_host_record.accepted? || co_host_record.declined?) && current_account == @event.account %>
-        <%= button_to 'Remove', remove_co_host_event_path(@event, account_id: co_host_record.account.id), method: :delete, data: { confirm: 'Are you sure?' } %>
       <% end %>
     </li>
   <% end %>

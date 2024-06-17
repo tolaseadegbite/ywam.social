@@ -25,6 +25,12 @@ Rails.application.routes.draw do
   namespace :host do
     resources :events do
       resources :event_talks
+      member do
+        post 'accept_co_host'
+        post 'decline_co_host'
+        post 'add_co_host'
+      delete 'remove_co_host'
+      end
     end
   end
 
