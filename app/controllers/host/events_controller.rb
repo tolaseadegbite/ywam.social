@@ -51,10 +51,14 @@ class Host::EventsController < ApplicationController
 
     def add_co_host
       account = Account.find(params[:account_id])
-      if @event.add_co_host(account)
-        redirect_to host_event_url(@event), notice: "Co-host added successfully."
+      if account_declined_too_many_times?(account)
+        redirect_to host_event_path(@event), alert: "This account has declined too many co-host invitations and cannot be added again."
       else
-        redirect_to host_event_url(@event), alert: "Unable to add co-host."
+        if @event.add_co_host(account)
+          redirect_to host_event_url(@event), notice: "Co-host added successfully."
+        else
+          redirect_to host_event_url(@event), alert: "Unable to add co-host."
+        end
       end
     end
   
@@ -80,6 +84,7 @@ class Host::EventsController < ApplicationController
     def decline_co_host
       co_host = @event.event_co_hosts.find_by(account_id: params[:account_id])
       if co_host&.pending?
+        co_host.increment!(:decline_count)
         co_host.update(status: :declined)
         redirect_to @event, notice: "Co-host invitation declined."
       else
@@ -104,5 +109,9 @@ class Host::EventsController < ApplicationController
       def find_correct_account
         @event ||= Event.find(params[:id])
         redirect_to(events_url, status: :see_other, notice: 'Access Denied') unless current_account == @event.account  
+      end
+
+      def account_declined_too_many_times?(account)
+        EventCoHost.where(account: account).where('decline_count > ?', 3).exists?
       end
 end

@@ -6,7 +6,7 @@
 <ul>
   <% @event.event_co_hosts.where.not(status: :declined).order(status: :asc).each do |co_host_record| %>
     <li>
-      <%= co_host_record.account.username %> - <%= co_host_record.status.capitalize %>
+      <%= co_host_record.account.username %>
       <% if co_host_record.pending? && co_host_record.account == current_account %>
         <%= button_to 'Accept', accept_co_host_event_path(@event, account_id: co_host_record.account.id), method: :post %>
         <%= button_to 'Decline', decline_co_host_event_path(@event, account_id: co_host_record.account.id), method: :post %>

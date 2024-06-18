@@ -2,13 +2,14 @@
 #
 # Table name: event_co_hosts
 #
-#  id         :bigint           not null, primary key
-#  role       :integer          default("host")
-#  status     :integer          default("pending")
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  account_id :bigint           not null
-#  event_id   :bigint           not null
+#  id            :bigint           not null, primary key
+#  decline_count :integer          default(0)
+#  role          :integer          default("host")
+#  status        :integer          default("pending")
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  account_id    :bigint           not null
+#  event_id      :bigint           not null
 #
 # Indexes
 #

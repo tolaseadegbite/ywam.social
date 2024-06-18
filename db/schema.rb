@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_16_184039) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_17_160424) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -91,6 +91,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_16_184039) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status", default: 0
+    t.integer "decline_count", default: 0
     t.index ["account_id"], name: "index_event_co_hosts_on_account_id"
     t.index ["event_id", "account_id"], name: "index_event_co_hosts_on_event_id_and_account_id", unique: true
     t.index ["event_id"], name: "index_event_co_hosts_on_event_id"
