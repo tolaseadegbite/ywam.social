@@ -23,9 +23,10 @@
 #  fk_rails_...  (event_id => events.id)
 #
 class EventCoHost < ApplicationRecord
-  after_initialize :set_defaults, if: :new_record?
-
+  
   validates :event_id, uniqueness: { scope: :account_id, message: "Account is already a co-host for this event" }
+  
+  after_initialize :set_defaults, if: :new_record?
   
   belongs_to :event
   belongs_to :account
