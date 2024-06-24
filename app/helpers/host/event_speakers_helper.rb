@@ -1,0 +1,2 @@
+module Host::EventSpeakersHelper
+end

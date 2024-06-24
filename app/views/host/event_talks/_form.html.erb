@@ -1,0 +1,12 @@
+<%= form_with model: [:host, event, event_speaker, event_talk], local: true do |form| %>
+    <%= render 'layouts/errors', form: form %>
+
+    <%#= hidden_field_tag :event_speaker_id, value: event_speaker.id %>
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+
+    <%= form.submit %>
+<% end %>

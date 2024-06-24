@@ -1,7 +1,7 @@
-<% if f.object.errors.any? %>
+<% if form.object.errors.any? %>
   <div class='text-danger'>
     <ul>
-      <% f.object.errors.each do |error| %>
+      <% form.object.errors.each do |error| %>
         <li><%= error.full_message %></li>
       <% end %>
     </ul>

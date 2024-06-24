@@ -1,0 +1,9 @@
+<%= form_with model: [:host, event, event_speaker] do |form| %>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+
+    <%= form.label :about %>
+    <%= form.text_area :about %>
+
+    <%= form.submit %>
+<% end %>

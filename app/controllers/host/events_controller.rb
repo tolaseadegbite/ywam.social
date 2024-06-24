@@ -13,6 +13,9 @@ class Host::EventsController < ApplicationController
       accepted_co_hosts = @event.event_co_hosts.accepted.map(&:account)
       declined_too_many_times = @event.event_co_hosts.where('decline_count > ?', 3).map(&:account)
       @accounts = Account.all - accepted_co_hosts - declined_too_many_times
+
+      @event_speakers = @event.event_speakers
+      @event_speaker = EventSpeaker.new
     end
 
     def new

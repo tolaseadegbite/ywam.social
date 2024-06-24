@@ -46,9 +46,9 @@ class EventsController < ApplicationController
       if co_host&.pending?
         co_host.update(status: :accepted)
         # NotificationJob.perform_later(@event.account, @event, "#{co_host.account.accountname} has accepted the co-host invitation for the event: #{@event.name}", :co_host_accepted)
-        redirect_to host_event_path(@event), notice: "Co-host invitation accepted."
+        redirect_to event_path(@event), notice: "Co-host invitation accepted."
       else
-        redirect_to host_event_path(@event), alert: "Unable to accept co-host invitation."
+        redirect_to event_path(@event), alert: "Unable to accept co-host invitation."
       end
     end
 
@@ -58,9 +58,9 @@ class EventsController < ApplicationController
         co_host.increment!(:decline_count)
         co_host.update(status: :declined)
         # NotificationJob.perform_later(@event.account, @event, "#{co_host.account.accountname} has declined the co-host invitation for the event: #{@event.name}", :co_host_declined)
-        redirect_to host_event_path(@event), notice: "Co-host invitation declined."
+        redirect_to event_path(@event), notice: "Co-host invitation declined."
       else
-        redirect_to host_event_path(@event), alert: "Unable to decline co-host invitation."
+        redirect_to event_path(@event), alert: "Unable to decline co-host invitation."
       end
     end
 

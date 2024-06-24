@@ -33,13 +33,25 @@
   <% end %>
 <% end %>
 
+<hr>
+
 <h3>Speakers</h3>
+<%= render 'host/event_speakers/form', event: @event, event_speaker: @event_speaker %>
+
 <ul>
-    <% @event_talks.each do |et| %>
-        <li>
-            <%= link_to host_event_event_talk_path(@event, et) do %>
-                <%= et.event_speaker.name %> | <%= et.title %>
+    <% @event_speakers.each do |es| %>
+      <li>
+        <%= link_to host_event_event_speaker_path(@event, es) do %>
+          <%= es.name %>
+          <ul>
+            <% es.event_talks.each do |et| %>
+              <%= link_to host_event_event_speaker_event_talk_path(@event, es, et) do %>
+                <li><strong><%= et.title %>: </strong>
+                <%= et.description %></li>
+              <% end %>
             <% end %>
-        </li>
+          </ul>
+        <% end %>
+      </li>
     <% end %>
 </ul>

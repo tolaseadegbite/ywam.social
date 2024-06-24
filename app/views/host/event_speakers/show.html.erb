@@ -1,0 +1,14 @@
+<%= render 'host/event_talks/form', event: @event, event_speaker: @event_speaker, event_talk: @event_talk %>
+
+<h1><%= @event_speaker.name %></h1>
+<p><%= @event_speaker.about %></p>
+
+<hr>
+<ul>
+    <% @event_talks.each do |et| %>
+        <%= link_to host_event_event_speaker_event_talk_path(@event, @event_speaker, et) do %>
+            <li><strong><%= et.title %>: </strong>
+            <%= et.description %></li>
+        <% end %>
+    <% end %>
+</ul>

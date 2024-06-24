@@ -1,0 +1,14 @@
+<h1>Event Title: <%= @event_talk.title %></h1>
+<h2>Speaker Name: <%= @event_talk.event_speaker.name %></h2>
+<h4>About Speaker: <%= @event_talk.event_speaker.about %></h4>
+<h4>About Talk: <%= @event_talk.description %></h4>
+<hr>
+<ul>
+    <% @event_talk.event_speaker.speaker_profiles.each do |sp| %>
+        <li>
+            <%= link_to sp.link do %>
+                sp.name
+            <% end %>
+        </li>
+    <% end %>
+</ul>
