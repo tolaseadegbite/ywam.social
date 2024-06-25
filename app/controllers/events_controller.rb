@@ -3,7 +3,7 @@ class EventsController < ApplicationController
     before_action :find_event, only: [:show, :add_co_host, :remove_co_host, :accept_co_host, :decline_co_host]
 
     def index
-      @events = Event.all
+      @events = Event.ordered
     end
 
     def show

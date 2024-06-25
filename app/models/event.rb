@@ -14,6 +14,7 @@
 #  start_date        :date
 #  start_time        :time
 #  state             :string
+#  status            :enum             default("draft"), not null
 #  streaming_link    :string
 #  street_address    :string
 #  time_zone         :string
@@ -69,6 +70,15 @@ class Event < ApplicationRecord
     enum cost_type: {
         "free (only option for now)": 0
     }
+
+    # postgres enums for status
+
+    enum :status, {
+        draft: 'draft',
+        published: 'published'
+    }, default: 'draft'
+
+    scope :ordered, -> { published }
 
     def countries
         CS.countries.with_indifferent_access

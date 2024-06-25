@@ -10,9 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_19_174159) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_25_183300) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  # Custom types defined in this database.
+  # Note that some types may not work with other database engines. Be careful if changing database.
+  create_enum "status", ["draft", "published"]
 
   create_table "accounts", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -140,6 +144,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_19_174159) do
     t.string "state"
     t.string "city"
     t.string "time_zone"
+    t.enum "status", default: "draft", null: false, enum_type: "status"
     t.index ["account_id"], name: "index_events_on_account_id"
     t.index ["event_category_id"], name: "index_events_on_event_category_id"
   end

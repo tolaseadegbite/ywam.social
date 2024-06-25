@@ -14,6 +14,7 @@
 #  start_date        :date
 #  start_time        :time
 #  state             :string
+#  status            :enum             default("draft"), not null
 #  streaming_link    :string
 #  street_address    :string
 #  time_zone         :string

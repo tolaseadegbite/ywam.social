@@ -1,3 +1,8 @@
+<%= form_with model: [:host, @event] do |form| %>
+  <%= form.select :status, Event.statuses.keys.map { |key| [key.humanize.capitalize, key] }, { include_blank: 'Event status' } %>
+  <%= form.submit %>
+<% end %>
+
 <%= link_to 'Edit', edit_host_event_path(@event) %>
 <h1><%= @event.name %></h1>
 <%= @event.details %>

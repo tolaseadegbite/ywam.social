@@ -108,7 +108,7 @@ class Host::EventsController < ApplicationController
     private
 
       def event_params
-        params.fetch(:event, {}).permit(:name, :start_date, :start_time, :end_date, :end_time, :details, :streaming_link, :time_zone, :event_category_id, :event_type, :cost_type, :country, :state, :city, :street_address)
+        params.fetch(:event, {}).permit(:name, :start_date, :start_time, :end_date, :end_time, :details, :streaming_link, :time_zone, :event_category_id, :event_type, :cost_type, :country, :state, :city, :street_address, :status)
       end
 
       def find_event
