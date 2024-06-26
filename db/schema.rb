@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_25_183300) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_26_145749) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -145,6 +145,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_25_183300) do
     t.string "city"
     t.string "time_zone"
     t.enum "status", default: "draft", null: false, enum_type: "status"
+    t.integer "responses_count", default: 0
     t.index ["account_id"], name: "index_events_on_account_id"
     t.index ["event_category_id"], name: "index_events_on_event_category_id"
   end
@@ -175,6 +176,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_25_183300) do
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_participants_on_account_id"
     t.index ["room_id"], name: "index_participants_on_room_id"
+  end
+
+  create_table "responses", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.string "responseable_type", null: false
+    t.bigint "responseable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id", "responseable_id", "responseable_type"], name: "idx_on_account_id_responseable_id_responseable_type_1fbc72c417", unique: true
+    t.index ["account_id", "responseable_id"], name: "index_responses_on_account_id_and_responseable_id", unique: true
+    t.index ["account_id"], name: "index_responses_on_account_id"
+    t.index ["responseable_type", "responseable_id"], name: "index_responses_on_responseable"
   end
 
   create_table "rooms", force: :cascade do |t|
@@ -215,6 +228,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_25_183300) do
   add_foreign_key "messages", "rooms"
   add_foreign_key "participants", "accounts"
   add_foreign_key "participants", "rooms"
+  add_foreign_key "responses", "accounts"
   add_foreign_key "speaker_profiles", "accounts"
   add_foreign_key "speaker_profiles", "event_speakers"
 end

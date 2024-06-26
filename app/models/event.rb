@@ -11,6 +11,7 @@
 #  end_time          :time
 #  event_type        :integer
 #  name              :string
+#  responses_count   :integer          default(0)
 #  start_date        :date
 #  start_time        :time
 #  state             :string
@@ -58,6 +59,8 @@ class Event < ApplicationRecord
     def remove_co_host(account)
         event_co_hosts.find_by(account: account)&.destroy
     end
+
+    has_many :responses, as: :responseable
 
     # event types
     enum event_type: {

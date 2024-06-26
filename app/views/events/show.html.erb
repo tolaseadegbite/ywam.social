@@ -29,12 +29,3 @@
 <% end %>
 
 <h2>Speakers</h2>
-<ul>
-  <% @event_talks.each do |et| %>
-    <li>
-      <%= link_to event_event_talk_path(@event, et) do %>
-        <%= et.event_speaker.name %> | <%= et.title %>
-      <% end %>
-    </li>
-  <% end %>
-</ul>
