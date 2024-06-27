@@ -15,17 +15,4 @@
   <% end %>
 </ul>
 
-<% if @event.account == current_account %>
-  <h2>Add Co-Host</h2>
-  <%= form_with url: add_co_host_event_path(@event), method: :post, local: true do |form| %>
-    <div class="field">
-      <%= label_tag :account_id, "Select Account" %>
-      <%= select_tag :account_id, options_from_collection_for_select(@accounts, :id, :username) %>
-    </div>
-    <div class="actions">
-      <%= form.submit "Add Co-Host" %>
-    </div>
-  <% end %>
-<% end %>
-
 <h2>Speakers</h2>

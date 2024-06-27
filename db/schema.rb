@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_25_183300) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_27_004532) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -177,6 +177,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_25_183300) do
     t.index ["room_id"], name: "index_participants_on_room_id"
   end
 
+  create_table "responses", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.string "respondable_type", null: false
+    t.bigint "respondable_id", null: false
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_responses_on_account_id"
+    t.index ["respondable_type", "respondable_id"], name: "index_responses_on_respondable"
+  end
+
   create_table "rooms", force: :cascade do |t|
     t.string "name"
     t.boolean "is_private", default: false
@@ -215,6 +226,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_25_183300) do
   add_foreign_key "messages", "rooms"
   add_foreign_key "participants", "accounts"
   add_foreign_key "participants", "rooms"
+  add_foreign_key "responses", "accounts"
   add_foreign_key "speaker_profiles", "accounts"
   add_foreign_key "speaker_profiles", "event_speakers"
 end
