@@ -11,7 +11,6 @@
 #  end_time          :time
 #  event_type        :integer
 #  name              :string
-#  responses_count   :integer          default(0)
 #  start_date        :date
 #  start_time        :time
 #  state             :string
@@ -60,8 +59,6 @@ class Event < ApplicationRecord
         event_co_hosts.find_by(account: account)&.destroy
     end
 
-    has_many :responses, as: :responseable
-
     # event types
     enum event_type: {
         online: 0,
@@ -75,7 +72,6 @@ class Event < ApplicationRecord
     }
 
     # postgres enums for status
-
     enum :status, {
         draft: 'draft',
         published: 'published'

@@ -11,7 +11,6 @@
 #  end_time          :time
 #  event_type        :integer
 #  name              :string
-#  responses_count   :integer          default(0)
 #  start_date        :date
 #  start_time        :time
 #  state             :string
