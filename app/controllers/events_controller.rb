@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
     before_action :authenticate_account!
-    before_action :find_event, only: [:show, :add_co_host, :remove_co_host, :accept_co_host, :decline_co_host]
+    before_action :find_event, only: [:show, :add_co_host, :remove_co_host, :accept_co_host, :decline_co_host, :rsvp]
 
     def index
       @events = Event.ordered
@@ -11,6 +11,8 @@ class EventsController < ApplicationController
       accepted_co_hosts = @event.event_co_hosts.accepted.map(&:account)
       declined_too_many_times = @event.event_co_hosts.where('decline_count > ?', 3).map(&:account)
       @accounts = Account.all - accepted_co_hosts - declined_too_many_times
+
+      @current_account_rsvp_status = @event.rsvps.find_by(account: current_account)&.status
     end
 
     def add_co_host
@@ -64,9 +66,22 @@ class EventsController < ApplicationController
       end
     end
 
+    def rsvp
+      rsvp = @event.rsvps.find_or_initialize_by(account: current_account)
+      if rsvp.update(rsvp_params)
+        redirect_to @event, notice: 'Your RSVP was successfully updated.'
+      else
+        redirect_to @event, alert: 'There was an error updating your RSVP.'
+      end
+    end
+
     private
 
       def find_event
-        @event ||= Event.includes(:co_hosts).find(params[:id])
+        @event = Event.includes(:rsvps, :accounts, :co_hosts).find(params[:id])
+      end
+
+      def rsvp_params
+        params.require(:rsvp).permit(:status, :rsvpable_type, :rsvpable_id)
       end
 end

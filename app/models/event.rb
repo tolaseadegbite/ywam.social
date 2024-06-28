@@ -59,6 +59,9 @@ class Event < ApplicationRecord
         event_co_hosts.find_by(account: account)&.destroy
     end
 
+    has_many :rsvps, as: :rsvpable, dependent: :destroy
+    has_many :accounts, through: :rsvps
+
     # event types
     enum event_type: {
         online: 0,

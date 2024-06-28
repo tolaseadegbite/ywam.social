@@ -60,6 +60,9 @@ class Account < ApplicationRecord
   has_many :event_co_hosts, dependent: :destroy
   has_many :co_hosted_events, through: :event_co_hosts, source: :event
 
+  has_many :rsvps, dependent: :destroy
+  has_many :events, through: :rsvps, source: :rsvpable, source_type: 'Event'
+
   # account avatar
   has_one_attached :avatar
 

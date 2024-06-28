@@ -15,4 +15,12 @@
   <% end %>
 </ul>
 
-<h2>Speakers</h2>
+<h2>RSVP</h2>
+<%= render 'rsvp_form', rsvpable: @event %>
+
+<h3>Attendees</h3>
+<ul>
+  <% @event.rsvps.each do |rsvp| %>
+    <li><%= rsvp.account.username %>: <%= rsvp.status.humanize %></li>
+  <% end %>
+</ul>

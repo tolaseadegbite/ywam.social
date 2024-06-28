@@ -44,6 +44,7 @@ Rails.application.routes.draw do
       delete 'remove_co_host'
       post 'accept_co_host'
       post 'decline_co_host'
+      post 'rsvp'
     end
   end
 

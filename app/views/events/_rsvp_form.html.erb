@@ -1,0 +1,8 @@
+<%= form_with url: rsvp_event_path(rsvpable), method: :post, local: true do %>
+  <div>
+    <%= hidden_field_tag 'rsvp[rsvpable_type]', rsvpable.class.name %>
+    <%= hidden_field_tag 'rsvp[rsvpable_id]', rsvpable.id %>
+    <%= select_tag 'rsvp[status]', options_for_select(Rsvp.statuses.keys.map { |status| [status.humanize, status] }, selected: @current_account_rsvp_status) %>
+    <%= submit_tag 'Submit' %>
+  </div>
+<% end %>
