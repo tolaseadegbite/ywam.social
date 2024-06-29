@@ -6,6 +6,7 @@
 <%= link_to 'Edit', edit_host_event_path(@event) %>
 <h1><%= @event.name %></h1>
 <%= @event.details %>
+<%= @event.event_category.name %>
 <div><%= @event.start_date.strftime("%B %d") %> at <%= @event.start_time.strftime("at %I:%M %p") %> - <%= @event.end_date.strftime("%B %d") %> <%= @event.end_time.strftime("at %I:%M %p") %> (<%= @event.time_zone %>)</div>
 
 <h3>Co-Hosts</h3>

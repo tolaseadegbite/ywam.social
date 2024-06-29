@@ -23,14 +23,15 @@ class Host::EventsController < ApplicationController
     end
 
     def create
-        @event = current_account.events.build(event_params)
-        if @event.save
-          respond_to do |format|
-            format.html { redirect_to host_event_url(@event), notice: 'Event was successfully created' }
-          end
-        else
-          render :new, status: :unprocessable_entity
+      @event = Event.new(event_params)
+      @event.account = current_account
+      if @event.save
+        respond_to do |format|
+          format.html { redirect_to host_event_url(@event), notice: 'Event was successfully created' }
         end
+      else
+        render :new, status: :unprocessable_entity
+      end
     end
 
     def edit

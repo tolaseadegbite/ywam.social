@@ -44,6 +44,9 @@ class Event < ApplicationRecord
     # associate event to a account
     belongs_to :account
 
+    # associate event to a eventcategory
+    belongs_to :event_category
+
     # associate the follwing objects to an event and also delete from database when the event is destroyed
     has_many :event_speakers, dependent: :destroy
     has_many :event_talks, dependent: :destroy

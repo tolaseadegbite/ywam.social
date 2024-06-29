@@ -23,4 +23,6 @@ class EventCategory < ApplicationRecord
 
     # associates event category to account
     belongs_to :account
+
+    has_many :events, dependent: :destroy
 end

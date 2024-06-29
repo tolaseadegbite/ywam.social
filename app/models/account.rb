@@ -65,6 +65,8 @@ class Account < ApplicationRecord
 
   has_many :prayer_requests, dependent: :destroy
 
+  has_many :articles, dependent: :destroy
+
   # account avatar
   has_one_attached :avatar
 
