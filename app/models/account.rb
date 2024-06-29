@@ -63,6 +63,8 @@ class Account < ApplicationRecord
   has_many :rsvps, dependent: :destroy
   has_many :events, through: :rsvps, source: :rsvpable, source_type: 'Event'
 
+  has_many :prayer_requests, dependent: :destroy
+
   # account avatar
   has_one_attached :avatar
 

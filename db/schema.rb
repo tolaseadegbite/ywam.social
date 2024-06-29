@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_27_210616) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_29_183432) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -177,6 +177,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_27_210616) do
     t.index ["room_id"], name: "index_participants_on_room_id"
   end
 
+  create_table "prayer_requests", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "description"
+    t.bigint "account_id", null: false
+    t.integer "saves_count", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_prayer_requests_on_account_id"
+  end
+
   create_table "responses", force: :cascade do |t|
     t.bigint "account_id", null: false
     t.string "respondable_type", null: false
@@ -237,6 +247,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_27_210616) do
   add_foreign_key "messages", "rooms"
   add_foreign_key "participants", "accounts"
   add_foreign_key "participants", "rooms"
+  add_foreign_key "prayer_requests", "accounts"
   add_foreign_key "responses", "accounts"
   add_foreign_key "rsvps", "accounts"
   add_foreign_key "speaker_profiles", "accounts"
