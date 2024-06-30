@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_29_195329) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_30_201710) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -86,11 +86,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_29_195329) do
     t.integer "saves_count", default: 0, null: false
     t.integer "likes_count", default: 0, null: false
     t.bigint "account_id", null: false
-    t.bigint "event_category_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_articles_on_account_id"
-    t.index ["event_category_id"], name: "index_articles_on_event_category_id"
   end
 
   create_table "event_categories", force: :cascade do |t|
@@ -200,17 +198,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_29_195329) do
     t.index ["account_id"], name: "index_prayer_requests_on_account_id"
   end
 
-  create_table "responses", force: :cascade do |t|
-    t.bigint "account_id", null: false
-    t.string "respondable_type", null: false
-    t.bigint "respondable_id", null: false
-    t.string "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["account_id"], name: "index_responses_on_account_id"
-    t.index ["respondable_type", "respondable_id"], name: "index_responses_on_respondable"
-  end
-
   create_table "rooms", force: :cascade do |t|
     t.string "name"
     t.boolean "is_private", default: false
@@ -245,7 +232,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_29_195329) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "addresses", "accounts"
   add_foreign_key "articles", "accounts"
-  add_foreign_key "articles", "event_categories"
   add_foreign_key "event_categories", "accounts"
   add_foreign_key "event_co_hosts", "accounts"
   add_foreign_key "event_co_hosts", "events"
@@ -263,7 +249,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_29_195329) do
   add_foreign_key "participants", "accounts"
   add_foreign_key "participants", "rooms"
   add_foreign_key "prayer_requests", "accounts"
-  add_foreign_key "responses", "accounts"
   add_foreign_key "rsvps", "accounts"
   add_foreign_key "speaker_profiles", "accounts"
   add_foreign_key "speaker_profiles", "event_speakers"
