@@ -1,0 +1,4 @@
+<strong>New comment for</strong>
+<%= link_to @commentable.title, @commentable unless @commentable.is_a?(Comment) %>
+<%= link_to @commentable.find_top_parent.title, @commentable.find_top_parent if @commentable.is_a?(Comment) %>
+<%= render 'comments/form', comment: @comment %>

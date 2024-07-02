@@ -9,6 +9,9 @@ class PrayerRequestsController < ApplicationController
 
   # GET /prayer_requests/1 or /prayer_requests/1.json
   def show
+    @commentable = @prayer_request
+    @comment = Comment.new
+    @comments = @prayer_request.comments
   end
 
   # GET /prayer_requests/new

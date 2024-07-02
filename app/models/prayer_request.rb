@@ -20,4 +20,6 @@
 #
 class PrayerRequest < ApplicationRecord
   belongs_to :account
+
+  has_many :comments, -> { order(created_at: :desc) }, as: :commentable, dependent: :destroy, inverse_of: :commentable
 end

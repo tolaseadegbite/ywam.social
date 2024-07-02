@@ -1,0 +1,2 @@
+module PrayerRequests::CommentsHelper
+end

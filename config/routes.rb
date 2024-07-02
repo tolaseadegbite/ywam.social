@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
-  resources :articles
   
   mount ActionCable.server, at: '/cable'
+
+  resources :articles do
+    resources :comments, only: %i[new create destroy], module: :articles
+  end
   
   resources :rooms do
     resources :messages
@@ -17,6 +20,7 @@ Rails.application.routes.draw do
     sessions: 'accounts/sessions',
     registrations: 'accounts/registrations'
   }
+
   get "up" => "rails/health#show", as: :rails_health_check
   
   root to: 'static_pages#home'
@@ -50,7 +54,7 @@ Rails.application.routes.draw do
   end
   
   resources :prayer_requests do
-    resources :comments, only: %i[new create destroy], module: :inboxes
+    resources :comments, only: %i[new create destroy], module: :prayer_requests
   end
   
   resources :accounts do

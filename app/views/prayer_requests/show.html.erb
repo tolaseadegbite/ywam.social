@@ -2,6 +2,9 @@
 
 <%= render @prayer_request %>
 
+<%= render template: 'comments/new' %>
+<%= render @comments %>
+
 <div>
   <%= link_to "Edit this prayer request", edit_prayer_request_path(@prayer_request) %> |
   <%= link_to "Back to prayer requests", prayer_requests_path %>

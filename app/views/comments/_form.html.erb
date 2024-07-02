@@ -1,0 +1,14 @@
+<%= form_with(model: [@commentable, comment]) do |form| %>
+  <%#= render 'shared/errors', form: form %>
+
+  <div class="field">
+    <%= form.text_area :body,
+      style: "width: 100%",
+      maxlength: Comment::MAX_BODY_LENGTH, 
+      placeholder: 'Add a comment here' %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
