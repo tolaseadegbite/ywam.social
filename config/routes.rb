@@ -49,10 +49,16 @@ Rails.application.routes.draw do
     end
   end
   
-  resources :prayer_requests
+  resources :prayer_requests do
+    resources :comments, only: %i[new create destroy], module: :inboxes
+  end
   
   resources :accounts do
     resources :addresses
+  end
+
+  resources :comments, only: [] do
+    resources :comments, only: %i[new create destroy], module: :comments
   end
   
   get ':username', to: 'profiles#show', as: 'profile'

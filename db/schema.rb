@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_30_201710) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_02_124253) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -89,6 +89,19 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_30_201710) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_articles_on_account_id"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.text "body"
+    t.string "commentable_type", null: false
+    t.bigint "commentable_id", null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_comments_on_account_id"
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable"
+    t.index ["deleted_at"], name: "index_comments_on_deleted_at"
   end
 
   create_table "event_categories", force: :cascade do |t|
@@ -232,6 +245,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_30_201710) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "addresses", "accounts"
   add_foreign_key "articles", "accounts"
+  add_foreign_key "comments", "accounts"
   add_foreign_key "event_categories", "accounts"
   add_foreign_key "event_co_hosts", "accounts"
   add_foreign_key "event_co_hosts", "events"
