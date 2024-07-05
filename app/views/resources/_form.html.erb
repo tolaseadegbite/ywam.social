@@ -1,0 +1,43 @@
+<%= form_with(model: resource, local: true, data: { controller: "category-select" }) do |form| %>
+  <% if resource.errors.any? %>
+    <%= render 'layouts/errors', form: form %>
+  <% end %>
+
+  <div>
+    <%= form.label :resource_category_id, style: "display: block" %>
+    <%= form.collection_select :resource_category_id, ResourceCategory.all, :id, :name, 
+        { include_blank: "Select category" }, 
+        { 
+          data: { 
+            action: "change->category-select#updateFields",
+            category_select_target: "select"
+          }
+        } 
+    %>
+  </div>
+
+  <div>
+    <%= form.label :title, style: "display: block" %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :description, style: "display: block" %>
+    <%= form.text_area :description %>
+  </div>
+
+  <%= turbo_frame_tag "category_specific_fields", data: { category_select_target: "fields" } do %>
+    <%= render_category_fields(form, resource) %>
+  <% end %>
+
+  <div>
+    <%= form.label :cover_image, style: "display: block" %>
+    <%= form.file_field :cover_image %>
+  </div>
+
+  <br>
+
+  <div>
+    <%= form.submit "Save Resource" %>
+  </div>
+<% end %>

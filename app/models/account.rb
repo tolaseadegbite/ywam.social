@@ -67,6 +67,8 @@ class Account < ApplicationRecord
 
   has_many :articles, dependent: :destroy
 
+  has_many :resources, dependent: :destroy
+
   has_many :comments, dependent: :destroy
 
   # account avatar

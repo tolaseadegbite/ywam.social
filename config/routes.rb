@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :resources do
+    get 'category_fields', on: :collection
+  end
   
   mount ActionCable.server, at: '/cable'
 

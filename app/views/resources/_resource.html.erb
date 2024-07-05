@@ -1,0 +1,57 @@
+<div id="<%= dom_id resource %>">
+  <p>
+    <strong>Title:</strong>
+    <%= resource.title %>
+  </p>
+
+  <p>
+    <strong>Category:</strong>
+    <%= resource.resource_category.name %>
+  </p>
+
+  <% if resource.cover_image.present? %>
+      <%= image_tag resource.cover_image %>
+  <% end %>
+
+  <p>
+    <strong>Description:</strong>
+    <%= resource.description %>
+  </p>
+
+  <% if resource.youtube_id.present? %>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= resource.youtube_id %>?si=Qmy0iHjn2L1loAuN" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  <% end %>
+
+  <% if resource.audio.present? %>
+    <%= audio_tag(polymorphic_path(resource.audio), controls: true) %>
+  <% end %>
+
+  <% if resource.file.present? %>
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-success rounded-1 w-100 mt-3" data-bs-toggle="modal" data-bs-target="#readModal">
+    Start reading
+    </button>
+  <% end %>
+
+</div>
+
+<% if resource.file.attached? %>
+  <!-- Read Modal -->
+  <div class="modal fade" id="readModal" tabindex="-1" aria-labelledby="readModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">You are reading: <%= resource.title %></h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <embed src="<%= polymorphic_url(resource.file) %>" type="application/pdf" width="100%" height="500" style="border: none;">
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
