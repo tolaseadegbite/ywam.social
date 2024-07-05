@@ -1,4 +1,4 @@
-<%= form_with(model: resource, local: true, data: { controller: "category-select" }) do |form| %>
+<%= form_with(model: resource, local: true, data: { controller: "category-select", category_select_current_category: resource.resource_category_id }) do |form| %>
   <% if resource.errors.any? %>
     <%= render 'layouts/errors', form: form %>
   <% end %>

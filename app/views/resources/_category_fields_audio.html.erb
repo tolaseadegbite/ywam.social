@@ -1,5 +1,12 @@
 <div>
-  <%= form.label :audio, "Audio File", style: "display: block" %>
+  <%= form.label :audio, style: "display: block" do %>
+    <% if form.object.audio.attached? %>
+      <%= audio_tag(polymorphic_path(resource.audio), controls: true) %>
+      The currently attached audio file is <%= form.object.audio.filename %>. Click below to replace this file.
+    <% else %>
+      No file has been uploaded yet. Please pick a file.
+    <% end %>
+  <% end %>
+
   <%= form.file_field :audio %>
-  <p>Rendered Audio Category Fields</p>
 </div>

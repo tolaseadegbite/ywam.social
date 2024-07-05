@@ -1,10 +1,51 @@
-<h1>Editing resource</h1>
+<%= form_with(model: @resource, local: true, data: { controller: "category-select", category_select_current_category: @resource.resource_category_id }) do |form| %>
+  <% if @resource.errors.any? %>
+    <%= render 'layouts/errors', form: form %>
+  <% end %>
 
-<%= render "form", resource: @resource %>
+  <div>
+    <%= form.label :resource_category_id, style: "display: block" %>
+    <%= form.collection_select :resource_category_id, ResourceCategory.all, :id, :name, 
+        { include_blank: "Select category" }, 
+        { 
+          data: { 
+            action: "change->category-select#updateFields",
+            category_select_target: "select"
+          }
+        } 
+    %>
+  </div>
 
-<br>
+  <div>
+    <%= form.label :title, style: "display: block" %>
+    <%= form.text_field :title %>
+  </div>
 
-<div>
-  <%= link_to "Show this resource", @resource %> |
-  <%= link_to "Back to resources", resources_path %>
-</div>
+  <div>
+    <%= form.label :description, style: "display: block" %>
+    <%= form.text_area :description %>
+  </div>
+
+  <%= turbo_frame_tag "category_specific_fields", data: { category_select_target: "fields" } do %>
+    <%= @category_fields %>
+  <% end %>
+
+  <div>
+    <%= form.label :cover_image, style: "display: block" do %>
+      <% if form.object.cover_image.attached? %>
+        <%= image_tag @resource.cover_image, size: '150x150' %>
+        <p>The currently attached file is <em><%= form.object.cover_image.filename %></em>. Click below to replace this file.</p>
+      <% else %>
+        No file has been uploaded yet. Please pick a file.
+      <% end %>
+    <% end %>
+
+    <%= form.file_field :cover_image %>
+  </div>
+
+  <br>
+
+  <div>
+    <%= form.submit "Save Resource" %>
+  </div>
+<% end %>

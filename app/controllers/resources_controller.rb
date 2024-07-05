@@ -14,6 +14,8 @@ class ResourcesController < ApplicationController
   end
 
   def edit
+    @resource = Resource.includes(:resource_category).find(params[:id])
+    @category_fields = render_to_string(partial: "resources/category_fields", locals: { form: form_builder, resource: @resource })
   end
 
   def create
@@ -68,5 +70,9 @@ class ResourcesController < ApplicationController
 
   def resource_params
     params.require(:resource).permit(:title, :description, :youtube_id, :resource_category_id, :cover_image, :file, :audio)
+  end
+
+  def form_builder
+    ActionView::Helpers::FormBuilder.new(:resource, @resource, view_context, {})
   end
 end

@@ -1,5 +1,11 @@
 <div>
-  <%= form.label :file, "PDF File", style: "display: block" %>
-  <%= form.file_field :file %>
-  <p>Rendered PDF Category Fields</p>
+  <%= form.label :file, style: "display: block" do %>
+    <% if form.object.file.attached? %>
+      The currently attached file is <%= form.object.file.filename %>. Click below to replace this file.
+    <% else %>
+      No file has been uploaded yet. Please pick a file.
+    <% end %>
+  <% end %>
+
+  <%= form.file_field :cover_image %>
 </div>
