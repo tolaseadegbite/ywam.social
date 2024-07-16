@@ -22,11 +22,13 @@
 #  fk_rails_...  (resource_category_id => resource_categories.id)
 #
 class Resource < ApplicationRecord
+  before_save :clear_irrelevant_fields
+
   validates :title, :description, :account_id, :resource_category_id, presence: true
 
-  validates :youtube_id, presence: true, if: -> { resource_category&.name == 'video' }
-  validates :audio, presence: true, if: -> { resource_category&.name == 'audio' }
-  validates :file, presence: true, if: -> { resource_category&.name == 'pdf' }
+  validates :youtube_id, presence: true, if: -> { video_category? }
+  validates :audio, presence: true, if: -> { audio_category? }
+  validates :file, presence: true, if: -> { pdf_category? }
 
   belongs_to :resource_category
   belongs_to :account
@@ -49,4 +51,26 @@ class Resource < ApplicationRecord
                                     message: "must be a valid image format" },
                     size:         { less_than: 1.megabytes,
                                     message:   "should be less than 1MB" }
+  private
+  
+        def clear_irrelevant_fields
+                if resource_category_id_changed?
+                        self.youtube_id = nil unless video_category?
+                        self.audio = nil unless audio_category?
+                        self.file = nil unless pdf_category?
+                        # Add any other category-specific fields here
+                end
+        end
+
+        def video_category?
+                resource_category&.name&.downcase == 'video'
+        end
+
+        def audio_category?
+                resource_category&.name&.downcase == 'audio'
+        end
+
+        def pdf_category?
+                resource_category&.name&.downcase == 'pdf'
+        end
 end

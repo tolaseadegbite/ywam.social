@@ -35,10 +35,10 @@ class ResourcesController < ApplicationController
   def update
     respond_to do |format|
       if @resource.update(resource_params)
-        format.html { redirect_to resource_url(@resource), notice: "Resource was successfully updated." }
+        format.html { redirect_to @resource, notice: 'Resource was successfully updated.' }
         format.json { render :show, status: :ok, location: @resource }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { render :edit }
         format.json { render json: @resource.errors, status: :unprocessable_entity }
       end
     end
@@ -69,7 +69,7 @@ class ResourcesController < ApplicationController
   end
 
   def resource_params
-    params.require(:resource).permit(:title, :description, :youtube_id, :resource_category_id, :cover_image, :file, :audio)
+    params.require(:resource).permit(:title, :description, :resource_category_id, :youtube_id, :audio, :file, :cover_image)
   end
 
   def form_builder
