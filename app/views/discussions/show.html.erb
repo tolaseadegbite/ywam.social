@@ -21,8 +21,10 @@
 
 </div>
 
+<div><%= render 'likes/like_button', likeable: @discussion %></div>
+
 <div>
-  <%= render template: 'comments/new' %>
+  <%#= render template: 'comments/new' %>
   <%= render @comments %>
 </div>
 

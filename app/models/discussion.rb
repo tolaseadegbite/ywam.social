@@ -2,12 +2,13 @@
 #
 # Table name: discussions
 #
-#  id         :bigint           not null, primary key
-#  title      :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  account_id :bigint           not null
-#  forum_id   :bigint           not null
+#  id          :bigint           not null, primary key
+#  likes_count :integer          default(0), not null
+#  title       :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  account_id  :bigint           not null
+#  forum_id    :bigint           not null
 #
 # Indexes
 #
@@ -23,6 +24,8 @@ class Discussion < ApplicationRecord
   belongs_to :forum
   belongs_to :account
   has_rich_text :body
+
+  has_many :likes, as: :likeable
 
   has_many :comments, -> { order(created_at: :desc) }, as: :commentable, dependent: :destroy, inverse_of: :commentable
 end

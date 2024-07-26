@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_21_120355) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_26_143944) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -120,6 +120,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_21_120355) do
     t.bigint "account_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "likes_count", default: 0, null: false
     t.index ["account_id"], name: "index_discussions_on_account_id"
     t.index ["forum_id"], name: "index_discussions_on_forum_id"
   end
@@ -209,6 +210,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_21_120355) do
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_joinables_on_account_id"
     t.index ["room_id"], name: "index_joinables_on_room_id"
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.string "likeable_type", null: false
+    t.bigint "likeable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id", "likeable_id", "likeable_type"], name: "index_likes_on_account_id_and_likeable_id_and_likeable_type", unique: true
+    t.index ["account_id"], name: "index_likes_on_account_id"
+    t.index ["likeable_id", "likeable_type"], name: "index_likes_on_likeable_id_and_likeable_type"
+    t.index ["likeable_type", "likeable_id"], name: "index_likes_on_likeable"
   end
 
   create_table "messages", force: :cascade do |t|
@@ -308,6 +321,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_21_120355) do
   add_foreign_key "forums", "accounts"
   add_foreign_key "joinables", "accounts"
   add_foreign_key "joinables", "rooms"
+  add_foreign_key "likes", "accounts"
   add_foreign_key "messages", "accounts"
   add_foreign_key "messages", "rooms"
   add_foreign_key "participants", "accounts"

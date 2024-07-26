@@ -75,6 +75,10 @@ class Account < ApplicationRecord
 
   has_many :comments, dependent: :destroy
 
+  has_many :likes, dependent: :destroy
+
+  has_many :liked_discussions, through: :likes, source: :likeable, source_type: "Discussion"
+
   # account avatar
   has_one_attached :avatar
 

@@ -1,0 +1,27 @@
+<div id="like_button">
+    <% if account_signed_in? %>
+
+        <% like = current_account.likes.find_by(likeable: likeable) %>
+
+        <% if like.nil? %>
+
+            <%= form_with model: [Like.new], method: :post do |f| %>
+                <%= f.hidden_field :likeable_id, value: likeable.id %>
+                <%= f.hidden_field :likeable_type, value: likeable.class.to_s %>
+                
+                <%= f.button class: "btn rounded-5 btn-light border" do %>
+                    <i class="fa-regular fa-heart"></i>
+                    Likes: <%= likeable.likes_count %>
+                <% end %>
+            <% end %>
+        <% else %>
+            <%= form_with url: like_path(like), method: :delete do |f| %>
+                
+                <%= f.button class: "btn btn-success rounded-5" do %>
+                    <i class="fa-solid fa-heart"></i>
+                    Likes: <%= likeable.likes_count %>
+                <% end %>
+            <% end %>
+        <% end %>
+    <% end %>
+</div>
