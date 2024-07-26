@@ -23,6 +23,8 @@
 
 <div><%= render 'likes/like_button', likeable: @discussion %></div>
 
+<div><%= render 'bookmarks/bookmark_button', bookmarkable: @discussion %></div>
+
 <div>
   <%#= render template: 'comments/new' %>
   <%= render @comments %>

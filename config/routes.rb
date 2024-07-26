@@ -80,4 +80,5 @@ Rails.application.routes.draw do
   put ':username/edit', to: 'profiles#update', as: 'edit_profile'
 
   resources :likes, only: [:create, :destroy]
+  resources :bookmarks, only: [:create, :destroy]
 end

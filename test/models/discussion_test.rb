@@ -2,13 +2,14 @@
 #
 # Table name: discussions
 #
-#  id          :bigint           not null, primary key
-#  likes_count :integer          default(0), not null
-#  title       :string
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  account_id  :bigint           not null
-#  forum_id    :bigint           not null
+#  id              :bigint           not null, primary key
+#  bookmarks_count :integer          default(0), not null
+#  likes_count     :integer          default(0), not null
+#  title           :string
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  account_id      :bigint           not null
+#  forum_id        :bigint           not null
 #
 # Indexes
 #

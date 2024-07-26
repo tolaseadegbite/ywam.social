@@ -1,0 +1,27 @@
+<div id="bookmark_button">
+    <% if account_signed_in? %>
+
+        <% bookmark = current_account.bookmarks.find_by(bookmarkable: bookmarkable) %>
+
+        <% if bookmark.nil? %>
+
+            <%= form_with model: [Bookmark.new], method: :post do |f| %>
+                <%= f.hidden_field :bookmarkable_id, value: bookmarkable.id %>
+                <%= f.hidden_field :bookmarkable_type, value: bookmarkable.class.to_s %>
+                
+                <%= f.button class: "btn rounded-5 btn-light border" do %>
+                    <i class="fa-regular fa-heart"></i>
+                    bookmarks: <%= bookmarkable.bookmarks_count %>
+                <% end %>
+            <% end %>
+        <% else %>
+            <%= form_with url: bookmark_path(bookmark), method: :delete do |f| %>
+                
+                <%= f.button class: "btn btn-success rounded-5" do %>
+                    <i class="fa-solid fa-heart"></i>
+                    bookmarks: <%= bookmarkable.bookmarks_count %>
+                <% end %>
+            <% end %>
+        <% end %>
+    <% end %>
+</div>

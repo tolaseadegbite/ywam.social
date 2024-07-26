@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_26_143944) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_26_204750) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -101,6 +101,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_26_143944) do
     t.index ["account_id"], name: "index_articles_on_account_id"
   end
 
+  create_table "bookmarks", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.string "bookmarkable_type", null: false
+    t.bigint "bookmarkable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id", "bookmarkable_type", "bookmarkable_id"], name: "idx_on_account_id_bookmarkable_type_bookmarkable_id_5b0c838494", unique: true
+    t.index ["account_id"], name: "index_bookmarks_on_account_id"
+    t.index ["bookmarkable_type", "bookmarkable_id"], name: "index_bookmarks_on_bookmarkable"
+    t.index ["bookmarkable_type", "bookmarkable_id"], name: "index_bookmarks_on_bookmarkable_type_and_bookmarkable_id"
+  end
+
   create_table "comments", force: :cascade do |t|
     t.bigint "account_id", null: false
     t.text "body"
@@ -121,6 +133,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_26_143944) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "likes_count", default: 0, null: false
+    t.integer "bookmarks_count", default: 0, null: false
     t.index ["account_id"], name: "index_discussions_on_account_id"
     t.index ["forum_id"], name: "index_discussions_on_forum_id"
   end
@@ -305,6 +318,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_26_143944) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "addresses", "accounts"
   add_foreign_key "articles", "accounts"
+  add_foreign_key "bookmarks", "accounts"
   add_foreign_key "comments", "accounts"
   add_foreign_key "discussions", "accounts"
   add_foreign_key "discussions", "forums"
