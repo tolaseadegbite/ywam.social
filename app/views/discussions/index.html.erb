@@ -1,0 +1,16 @@
+<h1>Discussions</h1>
+
+<ul>
+  <% @forums.each do |forum| %>
+    <li><%= link_to forum.name, forum %></li>
+  <% end %>
+</ul>
+
+<div id="discussions">
+  <% @discussions.each do |discussion| %>
+    <%= render discussion %>
+    <p>
+      <%= link_to "Show this discussion", forum_discussion_path(discussion.forum, discussion) %>
+    </p>
+  <% end %>
+</div>

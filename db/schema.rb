@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_04_194404) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_21_120355) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -114,6 +114,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_04_194404) do
     t.index ["deleted_at"], name: "index_comments_on_deleted_at"
   end
 
+  create_table "discussions", force: :cascade do |t|
+    t.string "title"
+    t.bigint "forum_id", null: false
+    t.bigint "account_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_discussions_on_account_id"
+    t.index ["forum_id"], name: "index_discussions_on_forum_id"
+  end
+
   create_table "event_categories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -181,6 +191,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_04_194404) do
     t.enum "status", default: "draft", null: false, enum_type: "status"
     t.index ["account_id"], name: "index_events_on_account_id"
     t.index ["event_category_id"], name: "index_events_on_event_category_id"
+  end
+
+  create_table "forums", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.bigint "account_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_forums_on_account_id"
   end
 
   create_table "joinables", force: :cascade do |t|
@@ -274,6 +293,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_04_194404) do
   add_foreign_key "addresses", "accounts"
   add_foreign_key "articles", "accounts"
   add_foreign_key "comments", "accounts"
+  add_foreign_key "discussions", "accounts"
+  add_foreign_key "discussions", "forums"
   add_foreign_key "event_categories", "accounts"
   add_foreign_key "event_co_hosts", "accounts"
   add_foreign_key "event_co_hosts", "events"
@@ -284,6 +305,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_04_194404) do
   add_foreign_key "event_talks", "events"
   add_foreign_key "events", "accounts"
   add_foreign_key "events", "event_categories"
+  add_foreign_key "forums", "accounts"
   add_foreign_key "joinables", "accounts"
   add_foreign_key "joinables", "rooms"
   add_foreign_key "messages", "accounts"

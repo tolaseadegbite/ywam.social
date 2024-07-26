@@ -1,0 +1,9 @@
+<h1><%= @forum.name %></h1>
+
+<%= link_to "New discussion", new_forum_discussion_path(@forum) %>
+
+<ul>
+    <% @forum.discussions.each do |discussion| %>
+        <li><%= link_to discussion.title, forum_discussion_path(discussion.forum, discussion) %></li>
+    <% end %>
+</ul>

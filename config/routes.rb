@@ -4,10 +4,18 @@ Rails.application.routes.draw do
   end
   
   mount ActionCable.server, at: '/cable'
-
+  
   resources :articles do
     resources :comments, only: %i[new create destroy], module: :articles
   end
+
+  resources :forums do
+    resources :discussions do
+      resources :comments, only: %i[new create destroy], module: :discussions
+    end
+  end
+
+  resources :discussions, only: [:index]
   
   resources :rooms do
     resources :messages

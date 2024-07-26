@@ -1,0 +1,34 @@
+<div id="<%= dom_id @discussion %>">
+  <p>
+    <strong>Title:</strong>
+    <%= @discussion.title %>
+  </p>
+
+  <p>
+    <strong>Body:</strong>
+    <%= @discussion.body %>
+  </p>
+
+  <p>
+    <strong>Forum:</strong>
+    <%= @discussion.forum.name %>
+  </p>
+
+  <p>
+    <strong>Account:</strong>
+    <%= @discussion.account.username %>
+  </p>
+
+</div>
+
+<div>
+  <%= render template: 'comments/new' %>
+  <%= render @comments %>
+</div>
+
+<div>
+  <%= link_to "Edit this discussion", edit_forum_discussion_path(@discussion.forum, @discussion) %> |
+  <%= link_to "Back to discussions", discussions_path %>
+
+  <%= button_to "Destroy this discussion", forum_discussion_path(@discussion.forum, @discussion), method: :delete %>
+</div>

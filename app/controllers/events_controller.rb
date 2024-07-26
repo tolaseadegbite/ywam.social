@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-    before_action :authenticate_account!
+    before_action :authenticate_account!, except: %i[index show]
     before_action :find_event, only: [:show, :add_co_host, :remove_co_host, :accept_co_host, :decline_co_host, :rsvp]
 
     def index
