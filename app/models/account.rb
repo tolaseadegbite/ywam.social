@@ -77,11 +77,15 @@ class Account < ApplicationRecord
 
   has_many :likes, dependent: :destroy
 
+  has_many :follows, dependent: :destroy
+
   has_many :liked_discussions, through: :likes, source: :likeable, source_type: "Discussion"
 
   has_many :bookmarks, dependent: :destroy
 
   has_many :bookmarked_discussions, through: :bookmarks, source: :bookmarkable, source_type: "Discussion"
+
+  has_many :followed_discussions, through: :follows, source: :followable, source_type: "Discussion"
 
   # account avatar
   has_one_attached :avatar

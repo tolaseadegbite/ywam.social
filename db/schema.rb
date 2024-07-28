@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_26_204750) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_26_212950) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -134,6 +134,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_26_204750) do
     t.datetime "updated_at", null: false
     t.integer "likes_count", default: 0, null: false
     t.integer "bookmarks_count", default: 0, null: false
+    t.integer "follows_count", default: 0, null: false
     t.index ["account_id"], name: "index_discussions_on_account_id"
     t.index ["forum_id"], name: "index_discussions_on_forum_id"
   end
@@ -205,6 +206,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_26_204750) do
     t.enum "status", default: "draft", null: false, enum_type: "status"
     t.index ["account_id"], name: "index_events_on_account_id"
     t.index ["event_category_id"], name: "index_events_on_event_category_id"
+  end
+
+  create_table "follows", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.string "followable_type", null: false
+    t.bigint "followable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id", "followable_id", "followable_type"], name: "idx_on_account_id_followable_id_followable_type_b71b2f7ef2", unique: true
+    t.index ["account_id"], name: "index_follows_on_account_id"
+    t.index ["followable_id", "followable_type"], name: "index_follows_on_followable_id_and_followable_type"
+    t.index ["followable_type", "followable_id"], name: "index_follows_on_followable"
   end
 
   create_table "forums", force: :cascade do |t|
@@ -332,6 +345,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_26_204750) do
   add_foreign_key "event_talks", "events"
   add_foreign_key "events", "accounts"
   add_foreign_key "events", "event_categories"
+  add_foreign_key "follows", "accounts"
   add_foreign_key "forums", "accounts"
   add_foreign_key "joinables", "accounts"
   add_foreign_key "joinables", "rooms"

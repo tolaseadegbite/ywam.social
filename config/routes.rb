@@ -81,4 +81,5 @@ Rails.application.routes.draw do
 
   resources :likes, only: [:create, :destroy]
   resources :bookmarks, only: [:create, :destroy]
+  resources :follows, only: [:create, :destroy]
 end

@@ -25,6 +25,8 @@
 
 <div><%= render 'bookmarks/bookmark_button', bookmarkable: @discussion %></div>
 
+<div><%= render 'follows/follow_button', followable: @discussion %></div>
+
 <div>
   <%#= render template: 'comments/new' %>
   <%= render @comments %>

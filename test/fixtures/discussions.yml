@@ -4,6 +4,7 @@
 #
 #  id              :bigint           not null, primary key
 #  bookmarks_count :integer          default(0), not null
+#  follows_count   :integer          default(0), not null
 #  likes_count     :integer          default(0), not null
 #  title           :string
 #  created_at      :datetime         not null

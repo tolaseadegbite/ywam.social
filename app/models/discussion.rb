@@ -4,6 +4,7 @@
 #
 #  id              :bigint           not null, primary key
 #  bookmarks_count :integer          default(0), not null
+#  follows_count   :integer          default(0), not null
 #  likes_count     :integer          default(0), not null
 #  title           :string
 #  created_at      :datetime         not null
@@ -28,10 +29,13 @@ class Discussion < ApplicationRecord
 
   has_many :likes, as: :likeable
   has_many :bookmarks, as: :bookmarkable
+  has_many :follows, as: :followable
 
   has_many :comments, -> { order(created_at: :desc) }, as: :commentable, dependent: :destroy, inverse_of: :commentable
   
   has_many :liked_accounts, through: :likes, source: :account
   
   has_many :bookmarked_accounts, through: :bookmarks, source: :account
+  
+  has_many :followed_accounts, through: :follows, source: :account
 end
